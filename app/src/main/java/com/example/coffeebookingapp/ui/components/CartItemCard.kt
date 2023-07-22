@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ import com.example.coffeebookingapp.model.CartItem
 import com.example.coffeebookingapp.ui.CoffeeAvatar
 import com.example.coffeebookingapp.ui.theme.light_onSurface2
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartItemCard(
     item: CartItem,
@@ -31,12 +33,12 @@ fun CartItemCard(
 ) {
     Card(
         modifier = modifier
-            .clickable(onClick = onClick)
             .fillMaxWidth(),
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
-        )
+        ),
+        onClick = onClick
     ) {
         Box(
             modifier = Modifier
@@ -45,14 +47,13 @@ fun CartItemCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
+                horizontalArrangement = Arrangement.spacedBy(15.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CoffeeAvatar(
                     coffee = item.product,
                     width = 80.dp
                 )
-                Spacer(modifier = Modifier.width(15.dp))
                 Column {
                     Text(
                         text = item.product,

@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,13 +33,15 @@ import com.example.coffeebookingapp.model.TemperatureType
 import com.example.coffeebookingapp.ui.components.CartItemCard
 import com.example.coffeebookingapp.ui.components.OrderSlot
 import com.example.coffeebookingapp.ui.components.PointCard
+import com.example.coffeebookingapp.ui.components.QuantityButton
 import com.example.coffeebookingapp.ui.components.RedeemableSlot
 import com.example.coffeebookingapp.ui.components.RewardHistorySlot
 import com.example.coffeebookingapp.ui.components.StampCountCard
+import com.example.coffeebookingapp.ui.details.DetailsScreen
 import com.example.coffeebookingapp.ui.details.DetailsViewModel
 import com.example.coffeebookingapp.ui.home.HomeViewModel
 import com.example.coffeebookingapp.ui.my_order.MyOrderViewModel
-import com.example.coffeebookingapp.ui.order_success.OrderSuccessScreen
+import com.example.coffeebookingapp.ui.rewards.RewardsScreen
 import com.example.coffeebookingapp.ui.theme.CoffeeBookingAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -69,7 +70,147 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    OrderSuccessScreen()
+                    DetailsScreen(
+                        product = "Americano",
+                        viewModel = detailsViewModel
+                    )
+//                    RewardsScreen(stampCount = 4, points = 2750, rewards = listOf(
+//                        PointReward(
+//                            id = "1",
+//                            product = "Americano",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "2",
+//                            product = "Cappuccino",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "3",
+//                            product = "Flat White",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "4",
+//                            product = "Americano",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "5",
+//                            product = "Mocha",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "1",
+//                            product = "Americano",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "2",
+//                            product = "Cappuccino",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "3",
+//                            product = "Flat White",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "4",
+//                            product = "Americano",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                        PointReward(
+//                            id = "5",
+//                            product = "Mocha",
+//                            points = 12,
+//                            datetime = "24 June | 12:30 PM"
+//                        ),
+//                    ))
+//                    RedeemScreen(redeemable = listOf(
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Americano",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Cappuccino",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Flat White",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Americano",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Mocha",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Mocha",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Americano",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Cappuccino",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Flat White",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Americano",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Mocha",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        ),
+//                        Redeemable(
+//                            id = "1",
+//                            product = "Mocha",
+//                            pointsRequired = 1340,
+//                            validUntil = "04.07.21"
+//                        )
+//                    ))
+//                    OrderSuccessScreen()
 //                    Column(
 //                        modifier = Modifier.padding(20.dp)
 //                    ) {
@@ -110,13 +251,9 @@ class MainActivity : ComponentActivity() {
 //                            product = "Americano",
 //                            pointsRequired = 1340,
 //                            validUntil = "04.07.21"
-//                        ))
-//                        RedeemableSlot(redeemable = Redeemable(
-//                            id = "1",
-//                            product = "Flat White",
-//                            pointsRequired = 1340,
-//                            validUntil = "04.07.21"
-//                        ))
+//                        )
+//                        )
+//                        QuantityButton(quantity = 10, onIncrease = {  }, onDecrease = {  })
 //                    }
                 }
             }

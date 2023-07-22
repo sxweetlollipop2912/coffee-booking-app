@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.ui.theme.light_onPrimary2
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StampCountCard(
     stampCount: Int,
@@ -37,7 +39,8 @@ fun StampCountCard(
         )
     ) {
         Column(
-            modifier = Modifier.padding(20.dp, 15.dp, 20.dp, 20.dp)
+            modifier = Modifier.padding(20.dp, 15.dp, 20.dp, 20.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -58,15 +61,14 @@ fun StampCountCard(
                     )
                 )
             }
-            Spacer(modifier = Modifier.height(10.dp))
             Card(
                 modifier = modifier
-                    .clickable(onClick = onClick)
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surface,
-                )
+                ),
+                onClick = onClick
             ) {
                 Row(
                     modifier = Modifier

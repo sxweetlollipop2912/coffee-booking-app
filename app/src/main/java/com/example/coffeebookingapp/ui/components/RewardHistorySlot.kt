@@ -27,12 +27,13 @@ fun RewardHistorySlot(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(2.dp)
+        ) {
             Text(
                 text = reward.product,
                 style = MaterialTheme.typography.labelMedium,
             )
-            Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = reward.datetime,
                 style = MaterialTheme.typography.labelMedium.copy(

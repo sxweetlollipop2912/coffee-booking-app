@@ -6,8 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -33,20 +36,20 @@ fun RedeemableSlot(
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             CoffeeAvatar(
                 coffee = redeemable.product,
                 width = 80.dp
             )
-            Spacer(modifier = Modifier.width(15.dp))
-            Column {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 Text(
                     text = redeemable.product,
                     style = MaterialTheme.typography.labelLarge
                 )
-                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Valid until ${redeemable.validUntil}",
                     style = MaterialTheme.typography.labelMedium.copy(

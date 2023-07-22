@@ -1,6 +1,7 @@
 package com.example.coffeebookingapp.ui.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,36 +32,36 @@ fun OrderSlot(
             .clickable(onClick = onClick)
             .fillMaxWidth(),
     ) {
-        Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
             Text(
                 text = order.datetime,
                 style = MaterialTheme.typography.labelMedium.copy(
                     color = light_onBackground2
                 ),
             )
-            Spacer(modifier = Modifier.height(2.dp))
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_orders_coffee),
                     contentDescription = null,
                 )
-                Spacer(modifier = Modifier.width(10.dp))
                 Text(
                     text = order.product,
                     style = MaterialTheme.typography.labelMedium
                 )
             }
-            Spacer(modifier = Modifier.height(2.dp))
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_orders_location),
                     contentDescription = null,
                 )
-                Spacer(modifier = Modifier.width(10.dp))
                 Text(
                     text = order.address,
                     style = MaterialTheme.typography.labelMedium
