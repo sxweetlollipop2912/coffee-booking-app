@@ -41,7 +41,10 @@ fun RedeemScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO: go back from Redeem*/ }) {
+                    IconButton(
+                        onClick = { /*TODO: go back from Redeem*/ },
+                        modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp),
+                    ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_back_arrow),
                             contentDescription = "back",

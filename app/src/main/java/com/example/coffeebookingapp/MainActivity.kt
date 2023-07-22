@@ -30,6 +30,7 @@ import com.example.coffeebookingapp.model.Redeemable
 import com.example.coffeebookingapp.model.ShotType
 import com.example.coffeebookingapp.model.SizeType
 import com.example.coffeebookingapp.model.TemperatureType
+import com.example.coffeebookingapp.ui.cart.CartScreen
 import com.example.coffeebookingapp.ui.components.CartItemCard
 import com.example.coffeebookingapp.ui.components.OrderSlot
 import com.example.coffeebookingapp.ui.components.PointCard
@@ -41,6 +42,7 @@ import com.example.coffeebookingapp.ui.details.DetailsScreen
 import com.example.coffeebookingapp.ui.details.DetailsViewModel
 import com.example.coffeebookingapp.ui.home.HomeViewModel
 import com.example.coffeebookingapp.ui.my_order.MyOrderViewModel
+import com.example.coffeebookingapp.ui.redeem.RedeemScreen
 import com.example.coffeebookingapp.ui.rewards.RewardsScreen
 import com.example.coffeebookingapp.ui.theme.CoffeeBookingAppTheme
 
@@ -70,10 +72,90 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DetailsScreen(
-                        product = "Americano",
-                        viewModel = detailsViewModel
+//                    SwipeToDismissListItems()
+                    CartScreen(
+                        items = listOf(
+                            CartItem(
+                                id = "1",
+                                product = "Mocha",
+                                price = 100.0,
+                                option = ProductOption(
+                                    quantity = 3,
+                                    shot = ShotType.SINGLE,
+                                    temperature = TemperatureType.ICED,
+                                    size = SizeType.MEDIUM,
+                                    ice = IceType.FULL
+                                )
+                            ),
+                            CartItem(
+                                id = "2",
+                                product = "Americano",
+                                price = 100.0,
+                                option = ProductOption(
+                                    quantity = 3,
+                                    shot = ShotType.SINGLE,
+                                    temperature = TemperatureType.ICED,
+                                    size = SizeType.MEDIUM,
+                                    ice = IceType.FULL
+                                )
+                            ),
+                            CartItem(
+                                id = "3",
+                                product = "Americano",
+                                price = 100.0,
+                                option = ProductOption(
+                                    quantity = 3,
+                                    shot = ShotType.SINGLE,
+                                    temperature = TemperatureType.ICED,
+                                    size = SizeType.MEDIUM,
+                                    ice = IceType.FULL
+                                )
+                            ),
+                            CartItem(
+                                id = "1",
+                                product = "Mocha",
+                                price = 100.0,
+                                option = ProductOption(
+                                    quantity = 3,
+                                    shot = ShotType.SINGLE,
+                                    temperature = TemperatureType.ICED,
+                                    size = SizeType.MEDIUM,
+                                    ice = IceType.FULL
+                                )
+                            ),
+                            CartItem(
+                                id = "2",
+                                product = "Americano",
+                                price = 100.0,
+                                option = ProductOption(
+                                    quantity = 3,
+                                    shot = ShotType.SINGLE,
+                                    temperature = TemperatureType.ICED,
+                                    size = SizeType.MEDIUM,
+                                    ice = IceType.FULL
+                                )
+                            ),
+                            CartItem(
+                                id = "3",
+                                product = "Americano",
+                                price = 100.0,
+                                option = ProductOption(
+                                    quantity = 3,
+                                    shot = ShotType.SINGLE,
+                                    temperature = TemperatureType.ICED,
+                                    size = SizeType.MEDIUM,
+                                    ice = IceType.FULL
+                                )
+                            ),
+                        ),
+                        onNavigateToDetails = {},
+                        onRemoveItem = {},
+                        onCheckOut = {}
                     )
+//                    DetailsScreen(
+//                        product = "Americano",
+//                        viewModel = detailsViewModel
+//                    )
 //                    RewardsScreen(stampCount = 4, points = 2750, rewards = listOf(
 //                        PointReward(
 //                            id = "1",

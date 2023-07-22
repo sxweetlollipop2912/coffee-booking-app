@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.CartItem
 import com.example.coffeebookingapp.ui.CoffeeAvatar
@@ -40,15 +41,16 @@ fun CartItemCard(
         ),
         onClick = onClick
     ) {
-        Box(
+        Row(
             modifier = Modifier
-                .padding(10.dp, 15.dp),
+                .padding(15.dp, 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(15.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f)
             ) {
                 CoffeeAvatar(
                     coffee = item.product,
@@ -80,7 +82,9 @@ fun CartItemCard(
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontWeight = FontWeight.Medium
                 ),
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = Modifier.width(60.dp),
+                maxLines = 1,
+                textAlign = TextAlign.End,
             )
         }
     }
