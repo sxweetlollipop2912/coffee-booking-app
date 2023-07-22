@@ -1,25 +1,41 @@
 package com.example.coffeebookingapp.model
 
-enum class ShotType(val value: Int) {
-    SINGLE(0),
-    DOUBLE(1)
+enum class ShotType(val value: Int, private val str: String) {
+    SINGLE(0, "single"),
+    DOUBLE(1, "double");
+
+    override fun toString(): String {
+        return str
+    }
 }
 
-enum class TemperatureType(val value: Int) {
-    HOT(0),
-    COLD(1)
+enum class TemperatureType(val value: Int, private val str: String) {
+    HOT(0, "hot"),
+    ICED(1, "iced");
+
+    override fun toString(): String {
+        return str
+    }
 }
 
-enum class SizeType(val value: Int) {
-    SMALL(0),
-    MEDIUM(1),
-    LARGE(2)
+enum class SizeType(val value: Int, private val str: String) {
+    SMALL(0, "small"),
+    MEDIUM(1, "medium"),
+    LARGE(2, "large");
+
+    override fun toString(): String {
+        return str
+    }
 }
 
-enum class IceType(val value: Int) {
-    LESS(0),
-    NORMAL(1),
-    MORE(2)
+enum class IceType(val value: Int, private val str: String) {
+    LESS(0, "less ice"),
+    HALF(1, "half ice"),
+    FULL(2, "full ice");
+
+    override fun toString(): String {
+        return str
+    }
 }
 
 data class ProductOption(

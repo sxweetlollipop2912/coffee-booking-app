@@ -16,11 +16,11 @@ class FakeMainRepository: MainRepository {
     private val stampCount = MutableStateFlow(0)
 
     private val checkedOutOrders = MutableStateFlow(listOf(
-        Order("1", "Cappuccino", "2021-10-01 10:00", "Rp 20.000", "Jl. Raya Kebayoran Lama No. 12"),
-        Order("2", "Cappuccino", "2021-10-02 10:00", "Rp 21.000", "Jl. Raya Kebayoran Lama No. 13"),
-        Order("3", "Cappuccino", "2021-10-03 10:00", "Rp 22.000", "Jl. Raya Kebayoran Lama No. 14"),
-        Order("4", "Cappuccino", "2021-10-04 10:00", "Rp 23.000", "Jl. Raya Kebayoran Lama No. 15"),
-        Order("5", "Cappuccino", "2021-10-05 10:00", "Rp 24.000", "Jl. Raya Kebayoran Lama No. 16"),
+        Order("1", "Cappuccino", "2021-10-01 10:00", 20.0, "Jl. Raya Kebayoran Lama No. 12"),
+        Order("2", "Cappuccino", "2021-10-02 10:00", 21.0, "Jl. Raya Kebayoran Lama No. 13"),
+        Order("3", "Cappuccino", "2021-10-03 10:00", 22.0, "Jl. Raya Kebayoran Lama No. 14"),
+        Order("4", "Cappuccino", "2021-10-04 10:00", 23.0, "Jl. Raya Kebayoran Lama No. 15"),
+        Order("5", "Cappuccino", "2021-10-05 10:00", 24.0, "Jl. Raya Kebayoran Lama No. 16"),
     ))
     private val ongoingOrders = MutableStateFlow(checkedOutOrders.value.toSet())
     private val historyOrders = MutableStateFlow(emptySet<Order>())

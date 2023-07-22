@@ -19,9 +19,9 @@ class DetailsViewModel(
     private val _option = MutableStateFlow(ProductOption(
         quantity = 1,
         shot = ShotType.SINGLE,
-        temperature = TemperatureType.COLD,
+        temperature = TemperatureType.ICED,
         size = SizeType.MEDIUM,
-        ice = IceType.NORMAL
+        ice = IceType.FULL
     ))
     val option = _option.asStateFlow()
 

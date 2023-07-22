@@ -39,6 +39,14 @@ val defaultTextStyle = TextStyle(
     ),
 )
 
+val buttonTextStyle = defaultTextStyle.copy(
+    fontSize = 14.sp, fontWeight = FontWeight.SemiBold, letterSpacing = 0.sp
+)
+
+val titleTextStyle = defaultTextStyle.copy(
+    fontSize = 16.sp, fontWeight = FontWeight.Medium, letterSpacing = (-0.28).sp
+)
+
 // Set of Material typography styles to start with
 @OptIn(ExperimentalTextApi::class)
 val PoppinsTypography = Typography(
