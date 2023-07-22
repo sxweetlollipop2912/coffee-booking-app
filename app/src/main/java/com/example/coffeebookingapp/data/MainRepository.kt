@@ -9,16 +9,16 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
     fun observeFullName(): Flow<String>
-    fun changeFullName(fullName: String)
+    fun changeFullName(upd: String)
     fun observePhone(): Flow<String>
-    fun changePhone(phone: String)
+    fun changePhone(upd: String): Boolean
     fun observeEmail(): Flow<String>
-    fun changeEmail(email: String)
+    fun changeEmail(upd: String): Boolean
     fun observeAddress(): Flow<String>
-    fun changeAddress(address: String)
+    fun changeAddress(upd: String)
 
     fun getProducts(): List<String>
-    fun getPrice(product: String, option: ProductOption): Int
+    fun getPrice(product: String, option: ProductOption): Double
 
     fun observeCart(): Flow<List<CartItem>>
     fun addToCart(cartItem: CartItem)
@@ -33,7 +33,7 @@ interface MainRepository {
     fun observePointsHistory(): Flow<List<PointReward>>
 
     fun observeCheckedOutOrders(): Flow<List<Order>>
-    fun checkOutOrder(order: Order)
+    fun checkOut(): Boolean
     fun moveToHistory(orderID: String): Boolean
     fun moveToOngoing(orderID: String): Boolean
     fun observeOngoingOrders(): Flow<Set<Order>>
