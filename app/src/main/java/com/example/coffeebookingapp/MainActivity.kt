@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -21,29 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.coffeebookingapp.data.FakeMainRepository
-import com.example.coffeebookingapp.model.CartItem
-import com.example.coffeebookingapp.model.IceType
 import com.example.coffeebookingapp.model.Order
-import com.example.coffeebookingapp.model.PointReward
 import com.example.coffeebookingapp.model.ProductOption
-import com.example.coffeebookingapp.model.Redeemable
-import com.example.coffeebookingapp.model.ShotType
-import com.example.coffeebookingapp.model.SizeType
-import com.example.coffeebookingapp.model.TemperatureType
-import com.example.coffeebookingapp.ui.cart.CartScreen
-import com.example.coffeebookingapp.ui.components.CartItemCard
-import com.example.coffeebookingapp.ui.components.OrderSlot
-import com.example.coffeebookingapp.ui.components.PointCard
-import com.example.coffeebookingapp.ui.components.QuantityButton
-import com.example.coffeebookingapp.ui.components.RedeemableSlot
-import com.example.coffeebookingapp.ui.components.RewardHistorySlot
-import com.example.coffeebookingapp.ui.components.StampCountCard
-import com.example.coffeebookingapp.ui.details.DetailsScreen
 import com.example.coffeebookingapp.ui.details.DetailsViewModel
 import com.example.coffeebookingapp.ui.home.HomeViewModel
 import com.example.coffeebookingapp.ui.my_order.MyOrderViewModel
-import com.example.coffeebookingapp.ui.redeem.RedeemScreen
-import com.example.coffeebookingapp.ui.rewards.RewardsScreen
+import com.example.coffeebookingapp.ui.profile.ProfileScreen
 import com.example.coffeebookingapp.ui.theme.CoffeeBookingAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,86 +54,105 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    SwipeToDismissListItems()
-                    CartScreen(
-                        items = listOf(
-                            CartItem(
-                                id = "1",
-                                product = "Mocha",
-                                price = 100.0,
-                                option = ProductOption(
-                                    quantity = 3,
-                                    shot = ShotType.SINGLE,
-                                    temperature = TemperatureType.ICED,
-                                    size = SizeType.MEDIUM,
-                                    ice = IceType.FULL
-                                )
-                            ),
-                            CartItem(
-                                id = "2",
-                                product = "Americano",
-                                price = 100.0,
-                                option = ProductOption(
-                                    quantity = 3,
-                                    shot = ShotType.SINGLE,
-                                    temperature = TemperatureType.ICED,
-                                    size = SizeType.MEDIUM,
-                                    ice = IceType.FULL
-                                )
-                            ),
-                            CartItem(
-                                id = "3",
-                                product = "Americano",
-                                price = 100.0,
-                                option = ProductOption(
-                                    quantity = 3,
-                                    shot = ShotType.SINGLE,
-                                    temperature = TemperatureType.ICED,
-                                    size = SizeType.MEDIUM,
-                                    ice = IceType.FULL
-                                )
-                            ),
-                            CartItem(
-                                id = "1",
-                                product = "Mocha",
-                                price = 100.0,
-                                option = ProductOption(
-                                    quantity = 3,
-                                    shot = ShotType.SINGLE,
-                                    temperature = TemperatureType.ICED,
-                                    size = SizeType.MEDIUM,
-                                    ice = IceType.FULL
-                                )
-                            ),
-                            CartItem(
-                                id = "2",
-                                product = "Americano",
-                                price = 100.0,
-                                option = ProductOption(
-                                    quantity = 3,
-                                    shot = ShotType.SINGLE,
-                                    temperature = TemperatureType.ICED,
-                                    size = SizeType.MEDIUM,
-                                    ice = IceType.FULL
-                                )
-                            ),
-                            CartItem(
-                                id = "3",
-                                product = "Americano",
-                                price = 100.0,
-                                option = ProductOption(
-                                    quantity = 3,
-                                    shot = ShotType.SINGLE,
-                                    temperature = TemperatureType.ICED,
-                                    size = SizeType.MEDIUM,
-                                    ice = IceType.FULL
-                                )
-                            ),
-                        ),
-                        onNavigateToDetails = {},
-                        onRemoveItem = {},
-                        onCheckOut = {}
+                    ProfileScreen(
+                        fullName = "Anderson",
+                        phone = "123456789",
+                        email = "abc@gmail.com",
+                        address = "3 Addersion Court Chino Hills, HO56824, United States",
+                        onFullNameSubmit = {},
+                        onPhoneSubmit = {},
+                        onEmailSubmit = {},
+                        onAddressSubmit = {},
+                        onBackClick = { /*TODO*/ }
                     )
+//                    HomeScreen(
+//                        fullName = "Anderson",
+//                        stampCount = 4,
+//                        coffees = listOf("Americano", "Cappuccino", "Flat White", "Mocha", "Latte"),
+//                        onCartClick = { /*TODO*/ },
+//                        onProfileClick = { /*TODO*/ },
+//                        onStampCountClick = { /*TODO*/ },
+//                        onCoffeeClick = { /*TODO*/ }
+//                    )
+//                    CartScreen(
+//                        items = listOf(
+//                            CartItem(
+//                                id = "1",
+//                                product = "Mocha",
+//                                price = 100.0,
+//                                option = ProductOption(
+//                                    quantity = 3,
+//                                    shot = ShotType.SINGLE,
+//                                    temperature = TemperatureType.ICED,
+//                                    size = SizeType.MEDIUM,
+//                                    ice = IceType.FULL
+//                                )
+//                            ),
+//                            CartItem(
+//                                id = "2",
+//                                product = "Americano",
+//                                price = 100.0,
+//                                option = ProductOption(
+//                                    quantity = 3,
+//                                    shot = ShotType.SINGLE,
+//                                    temperature = TemperatureType.ICED,
+//                                    size = SizeType.MEDIUM,
+//                                    ice = IceType.FULL
+//                                )
+//                            ),
+//                            CartItem(
+//                                id = "3",
+//                                product = "Americano",
+//                                price = 100.0,
+//                                option = ProductOption(
+//                                    quantity = 3,
+//                                    shot = ShotType.SINGLE,
+//                                    temperature = TemperatureType.ICED,
+//                                    size = SizeType.MEDIUM,
+//                                    ice = IceType.FULL
+//                                )
+//                            ),
+//                            CartItem(
+//                                id = "1",
+//                                product = "Mocha",
+//                                price = 100.0,
+//                                option = ProductOption(
+//                                    quantity = 3,
+//                                    shot = ShotType.SINGLE,
+//                                    temperature = TemperatureType.ICED,
+//                                    size = SizeType.MEDIUM,
+//                                    ice = IceType.FULL
+//                                )
+//                            ),
+//                            CartItem(
+//                                id = "2",
+//                                product = "Americano",
+//                                price = 100.0,
+//                                option = ProductOption(
+//                                    quantity = 3,
+//                                    shot = ShotType.SINGLE,
+//                                    temperature = TemperatureType.ICED,
+//                                    size = SizeType.MEDIUM,
+//                                    ice = IceType.FULL
+//                                )
+//                            ),
+//                            CartItem(
+//                                id = "3",
+//                                product = "Americano",
+//                                price = 100.0,
+//                                option = ProductOption(
+//                                    quantity = 3,
+//                                    shot = ShotType.SINGLE,
+//                                    temperature = TemperatureType.ICED,
+//                                    size = SizeType.MEDIUM,
+//                                    ice = IceType.FULL
+//                                )
+//                            ),
+//                        ),
+//                        onNavigateToDetails = {},
+//                        onRemoveItem = {},
+//                        onCheckOut = {}
+//                    )
 //                    DetailsScreen(
 //                        product = "Americano",
 //                        viewModel = detailsViewModel
@@ -389,7 +390,7 @@ fun DetailsRoute(
 ) {
     Column {
         val option: State<ProductOption> = detailsViewModel.option.collectAsStateWithLifecycle()
-        val totalPrice: State<Int> = detailsViewModel.totalPrice.collectAsStateWithLifecycle()
+        val totalPrice: State<Double> = detailsViewModel.totalPrice.collectAsStateWithLifecycle()
 
         Text(text = "Buying: ${detailsViewModel.product}")
         Text(text = "Quantity: ${option.value.quantity}")
