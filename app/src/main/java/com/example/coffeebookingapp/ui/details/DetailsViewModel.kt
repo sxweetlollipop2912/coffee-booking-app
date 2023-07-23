@@ -25,10 +25,10 @@ class DetailsViewModel(
     ))
     val option = _option.asStateFlow()
 
-    private val _totalPrice = MutableStateFlow<Int>(getPrice())
+    private val _totalPrice = MutableStateFlow(getPrice())
     val totalPrice = _totalPrice.asStateFlow()
 
-    private fun getPrice(): Int {
+    private fun getPrice(): Double {
         return repository.getPrice(product, option.value)
     }
 

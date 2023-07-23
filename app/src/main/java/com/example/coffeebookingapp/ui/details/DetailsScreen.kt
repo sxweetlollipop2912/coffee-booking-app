@@ -111,7 +111,7 @@ fun DetailsScreenContent(
     modifier: Modifier = Modifier
 ) {
     val option: State<ProductOption> = viewModel.option.collectAsStateWithLifecycle()
-    val totalPrice: State<Int> = viewModel.totalPrice.collectAsStateWithLifecycle()
+    val totalPrice: State<Double> = viewModel.totalPrice.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier

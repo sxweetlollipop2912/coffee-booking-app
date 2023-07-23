@@ -112,7 +112,7 @@ fun CartScreenContent(
                             state = dismissState,
                             directions = setOf(DismissDirection.EndToStart),
                             dismissThresholds = {
-                                FractionalThreshold(0.4f)
+                                FractionalThreshold(0.5f)
                             },
                             background = {
                                 Box(

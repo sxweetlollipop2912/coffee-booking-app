@@ -62,7 +62,7 @@ fun StampCountCard(
                 )
             }
             Card(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(

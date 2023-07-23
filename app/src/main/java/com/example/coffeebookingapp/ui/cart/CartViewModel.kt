@@ -22,20 +22,11 @@ class CartViewModel(
         emptyList()
     )
 
-    private val _totalPrice = MutableStateFlow<Int>(0)
-    val totalPrice = _totalPrice.asStateFlow()
-
-    fun priceOf(itemId: String): Int {
-        val item = items.value.find { it.id == itemId } ?: return 0
-        return repository.getPrice(item.product, item.option)
-    }
-
     fun removeFromCart(itemId: String) {
         val item = items.value.find { it.id == itemId } ?: return
-        val price = repository.getPrice(item.product, item.option)
+        val price = item.price
         viewModelScope.launch {
             repository.removeFromCart(itemId)
-            _totalPrice.update { it - price }
         }
     }
 
