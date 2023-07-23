@@ -28,6 +28,7 @@ class MyOrderViewModel(
             repository.moveToHistory(orderID)
         }
     }
+
     fun moveToOngoing(orderID: String) {
         viewModelScope.launch {
             repository.moveToOngoing(orderID)

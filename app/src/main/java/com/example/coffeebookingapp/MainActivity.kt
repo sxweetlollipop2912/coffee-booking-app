@@ -63,16 +63,16 @@ class MainActivity : ComponentActivity() {
                         onPhoneSubmit = {},
                         onEmailSubmit = {},
                         onAddressSubmit = {},
-                        onBackClick = { /*TODO*/ }
+                        onBackClick = { }
                     )
 //                    HomeScreen(
 //                        fullName = "Anderson",
 //                        stampCount = 4,
 //                        coffees = listOf("Americano", "Cappuccino", "Flat White", "Mocha", "Latte"),
-//                        onCartClick = { /*TODO*/ },
-//                        onProfileClick = { /*TODO*/ },
-//                        onStampCountClick = { /*TODO*/ },
-//                        onCoffeeClick = { /*TODO*/ }
+//                        onCartClick = {  },
+//                        onProfileClick = {  },
+//                        onStampCountClick = {  },
+//                        onCoffeeClick = {  }
 //                    )
 //                    CartScreen(
 //                        items = listOf(
@@ -343,6 +343,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun MyOrderRoute(
     myOrderViewModel: MyOrderViewModel,
@@ -350,7 +351,7 @@ fun MyOrderRoute(
     Row {
         Column {
             val ongoing: State<Set<Order>> = myOrderViewModel.ongoing.collectAsStateWithLifecycle()
-            for(order in ongoing.value) {
+            for (order in ongoing.value) {
                 Button(onClick = { myOrderViewModel.moveToHistory(order.id) }) {
                     Text(text = order.id)
                 }
@@ -358,7 +359,7 @@ fun MyOrderRoute(
         }
         Column {
             val history: State<Set<Order>> = myOrderViewModel.history.collectAsStateWithLifecycle()
-            for(order in history.value) {
+            for (order in history.value) {
                 Button(onClick = { myOrderViewModel.moveToOngoing(order.id) }) {
                     Text(text = order.id)
                 }
@@ -366,6 +367,7 @@ fun MyOrderRoute(
         }
     }
 }
+
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel
@@ -376,8 +378,8 @@ fun HomeRoute(
         val products: List<String> = homeViewModel.products
         Text(text = fullName.value)
         Text(text = stampCount.value.toString())
-        for(product in products) {
-            Button(onClick = {  }) {
+        for (product in products) {
+            Button(onClick = { }) {
                 Text(text = product)
             }
         }

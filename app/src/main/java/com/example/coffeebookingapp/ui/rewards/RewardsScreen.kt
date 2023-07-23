@@ -50,13 +50,13 @@ fun RewardsScreen(
                 scrollBehavior = scrollBehavior
             )
         }
-    ) {
-        innerPadding -> val screenModifier = Modifier.padding(innerPadding)
+    ) { innerPadding ->
+        val screenModifier = Modifier.padding(innerPadding)
         RewardsScreenContent(
             stampCount,
             points,
             rewards,
-            screenModifier
+            screenModifier.padding(horizontal = 30.dp)
         )
     }
 }
@@ -99,6 +99,6 @@ fun RewardsScreenContent(
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = modifier
             .fillMaxWidth(),
-        contentPadding = PaddingValues(30.dp, 0.dp, 30.dp, 100.dp)
+        contentPadding = PaddingValues(bottom = 100.dp)
     )
 }

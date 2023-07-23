@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class RewardsViewModel(
     private val repository: MainRepository
-): ViewModel() {
+) : ViewModel() {
     val stampCount = repository.observeStampCount().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),

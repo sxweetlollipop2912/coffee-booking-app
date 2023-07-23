@@ -235,7 +235,7 @@ class FakeMainRepository : MainRepository {
         if (cart.value.isEmpty()) return false
         val orders = mutableListOf<Order>()
         var totalPrice = 0.0
-        for(item in cart.value) {
+        for (item in cart.value) {
             val order = Order(
                 id = (checkedOutOrders.value.last().id.toInt() + 1).toString(),
                 product = item.product,

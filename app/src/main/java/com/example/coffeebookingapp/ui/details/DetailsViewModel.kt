@@ -15,14 +15,16 @@ import kotlinx.coroutines.flow.update
 class DetailsViewModel(
     private val repository: MainRepository,
     val product: String
-): ViewModel() {
-    private val _option = MutableStateFlow(ProductOption(
-        quantity = 1,
-        shot = ShotType.SINGLE,
-        temperature = TemperatureType.ICED,
-        size = SizeType.MEDIUM,
-        ice = IceType.FULL
-    ))
+) : ViewModel() {
+    private val _option = MutableStateFlow(
+        ProductOption(
+            quantity = 1,
+            shot = ShotType.SINGLE,
+            temperature = TemperatureType.ICED,
+            size = SizeType.MEDIUM,
+            ice = IceType.FULL
+        )
+    )
     val option = _option.asStateFlow()
 
     private val _totalPrice = MutableStateFlow(getPrice())
@@ -36,26 +38,32 @@ class DetailsViewModel(
         _option.update { it.copy(quantity = maxOf(quantity, 0)) }
         _totalPrice.update { getPrice() }
     }
+
     fun incQuantity() {
         _option.update { it.copy(quantity = it.quantity + 1) }
         _totalPrice.update { getPrice() }
     }
+
     fun decQuantity() {
         _option.update { it.copy(quantity = maxOf(it.quantity - 1, 0)) }
         _totalPrice.update { getPrice() }
     }
+
     fun setShot(shot: ShotType) {
         _option.update { it.copy(shot = shot) }
         _totalPrice.update { getPrice() }
     }
+
     fun setTemperature(temperature: TemperatureType) {
         _option.update { it.copy(temperature = temperature) }
         _totalPrice.update { getPrice() }
     }
+
     fun setSize(size: SizeType) {
         _option.update { it.copy(size = size) }
         _totalPrice.update { getPrice() }
     }
+
     fun setIce(ice: IceType) {
         _option.update { it.copy(ice = ice) }
         _totalPrice.update { getPrice() }

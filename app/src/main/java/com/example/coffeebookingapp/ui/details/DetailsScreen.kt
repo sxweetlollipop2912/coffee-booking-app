@@ -5,16 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -29,28 +25,20 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.model.IceType
-import com.example.coffeebookingapp.model.PointReward
 import com.example.coffeebookingapp.model.ProductOption
 import com.example.coffeebookingapp.model.ShotType
 import com.example.coffeebookingapp.model.SizeType
 import com.example.coffeebookingapp.model.TemperatureType
 import com.example.coffeebookingapp.ui.CoffeeAvatar
-import com.example.coffeebookingapp.ui.components.PointCard
 import com.example.coffeebookingapp.ui.components.QuantityButton
-import com.example.coffeebookingapp.ui.components.RewardHistorySlot
-import com.example.coffeebookingapp.ui.components.StampCountCard
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
 import com.example.coffeebookingapp.ui.theme.light_inactive
 
@@ -58,7 +46,17 @@ import com.example.coffeebookingapp.ui.theme.light_inactive
 @Composable
 fun DetailsScreen(
     product: String,
-    viewModel: DetailsViewModel,
+    option: ProductOption,
+    totalPrice: Double,
+    onIncQuantity: () -> Unit,
+    onDecQuantity: () -> Unit,
+    onSetShot: (ShotType) -> Unit,
+    onSetTemperature: (TemperatureType) -> Unit,
+    onSetSize: (SizeType) -> Unit,
+    onSetIce: (IceType) -> Unit,
+    onAddToCart: () -> Unit,
+    onBackClick: () -> Unit,
+    onCartClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -73,8 +71,7 @@ fun DetailsScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { /*TODO: go back from Details*/ },
-                        modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp),
+                        onClick = onBackClick,
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_back_arrow),
@@ -84,8 +81,7 @@ fun DetailsScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = { /*TODO: go to cart from Details*/ },
-                        modifier = Modifier.padding(0.dp, 0.dp, 15.dp, 0.dp),
+                        onClick = onCartClick,
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_cart),
@@ -96,26 +92,43 @@ fun DetailsScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
+                modifier = Modifier.padding(10.dp, 0.dp, 15.dp, 0.dp),
             )
         }
-    ) {
-        innerPadding -> val screenModifier = Modifier.padding(innerPadding)
-        DetailsScreenContent(product, viewModel, screenModifier)
+    ) { innerPadding ->
+        val screenModifier = Modifier.padding(innerPadding)
+        DetailsScreenContent(
+            product,
+            option,
+            totalPrice,
+            onIncQuantity,
+            onDecQuantity,
+            onSetShot,
+            onSetTemperature,
+            onSetSize,
+            onSetIce,
+            onAddToCart,
+            screenModifier.padding(30.dp, 0.dp, 30.dp, 15.dp)
+        )
     }
 }
 
 @Composable
 fun DetailsScreenContent(
     product: String,
-    viewModel: DetailsViewModel,
+    option: ProductOption,
+    totalPrice: Double,
+    onIncQuantity: () -> Unit,
+    onDecQuantity: () -> Unit,
+    onSetShot: (ShotType) -> Unit,
+    onSetTemperature: (TemperatureType) -> Unit,
+    onSetSize: (SizeType) -> Unit,
+    onSetIce: (IceType) -> Unit,
+    onAddToCart: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val option: State<ProductOption> = viewModel.option.collectAsStateWithLifecycle()
-    val totalPrice: State<Double> = viewModel.totalPrice.collectAsStateWithLifecycle()
-
     Column(
-        modifier = modifier
-            .padding(30.dp, 0.dp, 30.dp, 15.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
         Column(
@@ -148,9 +161,9 @@ fun DetailsScreenContent(
                     style = MaterialTheme.typography.labelLarge,
                 )
                 QuantityButton(
-                    quantity = option.value.quantity,
-                    onIncrease = { viewModel.incQuantity() },
-                    onDecrease = { viewModel.decQuantity() },
+                    quantity = option.quantity,
+                    onIncrease = onIncQuantity,
+                    onDecrease = onDecQuantity,
                 )
             }
             Divider(
@@ -170,14 +183,15 @@ fun DetailsScreenContent(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    val current = option.value.shot
+                    val current = option.shot
                     OutlinedButton(
-                        onClick = { viewModel.setShot(ShotType.SINGLE) },
+                        onClick = { onSetShot(ShotType.SINGLE) },
                         shape = RoundedCornerShape(50.dp),
                         colors = ButtonDefaults.outlinedButtonColors(
                             containerColor = Color.Transparent
                         ),
-                        border = BorderStroke(1.2.dp,
+                        border = BorderStroke(
+                            1.2.dp,
                             if (current == ShotType.SINGLE) MaterialTheme.colorScheme.onBackground
                             else light_inactive
                         ),
@@ -189,12 +203,13 @@ fun DetailsScreenContent(
                         )
                     }
                     OutlinedButton(
-                        onClick = { viewModel.setShot(ShotType.DOUBLE) },
+                        onClick = { onSetShot(ShotType.DOUBLE) },
                         shape = RoundedCornerShape(50.dp),
                         colors = ButtonDefaults.outlinedButtonColors(
                             containerColor = Color.Transparent
                         ),
-                        border = BorderStroke(1.2.dp,
+                        border = BorderStroke(
+                            1.2.dp,
                             if (current == ShotType.DOUBLE) MaterialTheme.colorScheme.onBackground
                             else light_inactive
                         ),
@@ -224,8 +239,8 @@ fun DetailsScreenContent(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    val current = option.value.temperature
-                    IconButton(onClick = { viewModel.setTemperature(TemperatureType.HOT) }) {
+                    val current = option.temperature
+                    IconButton(onClick = { onSetTemperature(TemperatureType.HOT) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_details_select_hot),
                             contentDescription = "select hot",
@@ -233,7 +248,7 @@ fun DetailsScreenContent(
                             else light_inactive
                         )
                     }
-                    IconButton(onClick = { viewModel.setTemperature(TemperatureType.ICED) }) {
+                    IconButton(onClick = { onSetTemperature(TemperatureType.ICED) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_details_select_iced),
                             contentDescription = "select cold",
@@ -260,9 +275,9 @@ fun DetailsScreenContent(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.Bottom,
                 ) {
-                    val current = option.value.size
+                    val current = option.size
                     IconButton(
-                        onClick = { viewModel.setSize(SizeType.SMALL) },
+                        onClick = { onSetSize(SizeType.SMALL) },
                         modifier = Modifier.height(22.dp),
                     ) {
                         Icon(
@@ -273,7 +288,7 @@ fun DetailsScreenContent(
                         )
                     }
                     IconButton(
-                        onClick = { viewModel.setSize(SizeType.MEDIUM) },
+                        onClick = { onSetSize(SizeType.MEDIUM) },
                         modifier = Modifier.height(31.dp),
                     ) {
                         Icon(
@@ -284,7 +299,7 @@ fun DetailsScreenContent(
                         )
                     }
                     IconButton(
-                        onClick = { viewModel.setSize(SizeType.LARGE) },
+                        onClick = { onSetSize(SizeType.LARGE) },
                         modifier = Modifier.height(38.dp),
                     ) {
                         Icon(
@@ -313,8 +328,8 @@ fun DetailsScreenContent(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.Bottom,
                 ) {
-                    val current = option.value.ice
-                    IconButton(onClick = { viewModel.setIce(IceType.LESS) }) {
+                    val current = option.ice
+                    IconButton(onClick = { onSetIce(IceType.LESS) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_details_select_ice1),
                             contentDescription = "select less ice",
@@ -322,7 +337,7 @@ fun DetailsScreenContent(
                             else light_inactive
                         )
                     }
-                    IconButton(onClick = { viewModel.setIce(IceType.HALF) }) {
+                    IconButton(onClick = { onSetIce(IceType.HALF) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_details_select_ice2),
                             contentDescription = "select half ice",
@@ -330,7 +345,7 @@ fun DetailsScreenContent(
                             else light_inactive
                         )
                     }
-                    IconButton(onClick = { viewModel.setIce(IceType.FULL) }) {
+                    IconButton(onClick = { onSetIce(IceType.FULL) }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_details_select_ice3),
                             contentDescription = "select full ice",
@@ -352,12 +367,12 @@ fun DetailsScreenContent(
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Text(
-                    text = "$${totalPrice.value}",
+                    text = "$${totalPrice}",
                     style = MaterialTheme.typography.titleMedium,
                 )
             }
             Button(
-                onClick = { /*TODO: Add to cart*/ },
+                onClick = onAddToCart,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(

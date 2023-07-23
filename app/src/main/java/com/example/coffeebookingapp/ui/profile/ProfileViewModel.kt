@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val repository: MainRepository
-): ViewModel() {
+) : ViewModel() {
     val fullName = repository.observeFullName().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
@@ -37,16 +37,19 @@ class ProfileViewModel(
             repository.changeFullName(string)
         }
     }
+
     fun changePhone(string: String) {
         viewModelScope.launch {
             repository.changePhone(string)
         }
     }
+
     fun changeEmail(string: String) {
         viewModelScope.launch {
             repository.changeEmail(string)
         }
     }
+
     fun changeAddress(string: String) {
         viewModelScope.launch {
             repository.changeAddress(string)

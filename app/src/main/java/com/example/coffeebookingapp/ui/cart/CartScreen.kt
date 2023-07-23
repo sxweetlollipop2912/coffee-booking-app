@@ -18,20 +18,11 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.rememberDismissState
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -41,8 +32,6 @@ import com.example.coffeebookingapp.ui.components.CartItemCard
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
 import com.example.coffeebookingapp.ui.theme.light_darkPrimary
 import com.example.coffeebookingapp.ui.theme.light_onBackground2
-import androidx.compose.material3.*
-import androidx.compose.ui.platform.LocalDensity
 import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +41,7 @@ fun CartScreen(
     onNavigateToDetails: (String) -> Unit,
     onRemoveItem: (String) -> Unit,
     onCheckOut: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -66,7 +56,7 @@ fun CartScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { /*TODO: go back from My Cart*/ },
+                        onClick = onBackClick,
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_back_arrow),
@@ -79,9 +69,12 @@ fun CartScreen(
                 ),
             )
         }
-    ) {
-        innerPadding -> val screenModifier = Modifier.padding(innerPadding)
-        CartScreenContent(items, onNavigateToDetails, onRemoveItem, onCheckOut, screenModifier)
+    ) { innerPadding ->
+        val screenModifier = Modifier.padding(innerPadding)
+        CartScreenContent(
+            items, onNavigateToDetails, onRemoveItem, onCheckOut,
+            screenModifier.padding(horizontal = 20.dp)
+        )
     }
 }
 
@@ -97,7 +90,7 @@ fun CartScreenContent(
     val totalPrice = items.map { it.price }.reduce { acc, price -> acc + price }
     Column(
         modifier = modifier
-            .padding(20.dp, 0.dp, 20.dp, 15.dp),
+            .padding(bottom = 15.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
         LazyColumn(
@@ -106,8 +99,7 @@ fun CartScreenContent(
                     val dismissState = rememberDismissState()
                     if (dismissState.isDismissed(DismissDirection.EndToStart)) {
                         onRemoveItem(items[index].id)
-                    }
-                    else {
+                    } else {
                         SwipeToDismiss(
                             state = dismissState,
                             directions = setOf(DismissDirection.EndToStart),

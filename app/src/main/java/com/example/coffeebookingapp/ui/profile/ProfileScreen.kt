@@ -63,7 +63,6 @@ fun ProfileScreen(
                 navigationIcon = {
                     IconButton(
                         onClick = onBackClick,
-                        modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp),
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_back_arrow),
@@ -74,6 +73,7 @@ fun ProfileScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
+                modifier = Modifier.padding(10.dp, 0.dp),
             )
         }
     ) { innerPadding ->

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val repository: MainRepository
-): ViewModel() {
+) : ViewModel() {
     val fullName = repository.observeFullName().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),

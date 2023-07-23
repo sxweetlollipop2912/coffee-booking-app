@@ -105,8 +105,8 @@ fun HomeScreen(
                     .padding(10.dp, 15.dp)
             )
         }
-    ) {
-        innerPadding -> val screenModifier = Modifier.padding(innerPadding)
+    ) { innerPadding ->
+        val screenModifier = Modifier.padding(innerPadding)
         HomeScreenContent(
             stampCount,
             coffees,
@@ -159,7 +159,7 @@ fun HomeScreenContent(
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                     contentPadding = PaddingValues(0.dp, 0.dp, 0.dp, 100.dp),
                 ) {
-                    items(coffees.size) {idx ->
+                    items(coffees.size) { idx ->
                         Card(
                             shape = RoundedCornerShape(15.dp),
                             colors = CardDefaults.cardColors(

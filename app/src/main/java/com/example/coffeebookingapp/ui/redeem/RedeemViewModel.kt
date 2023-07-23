@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class RedeemViewModel(
     private val repository: MainRepository
-): ViewModel() {
+) : ViewModel() {
     val redeemable = repository.observeRedeemableProducts().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),

@@ -24,9 +24,12 @@ import com.example.coffeebookingapp.ui.theme.light_darkPrimary
 import com.example.coffeebookingapp.ui.theme.light_onBackground2
 
 @Composable
-fun OrderSuccessScreen() {
+fun OrderSuccessScreen(
+    onTrackOrderClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(30.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
@@ -58,7 +61,7 @@ fun OrderSuccessScreen() {
         )
         Spacer(modifier = Modifier.height(50.dp))
         Button(
-            onClick = { /*TODO: Track my order navigation*/ },
+            onClick = onTrackOrderClick,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(

@@ -27,6 +27,7 @@ import com.example.coffeebookingapp.ui.components.RedeemableSlot
 @Composable
 fun RedeemScreen(
     redeemable: List<Redeemable>,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -42,8 +43,7 @@ fun RedeemScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { /*TODO: go back from Redeem*/ },
-                        modifier = Modifier.padding(10.dp, 0.dp, 0.dp, 0.dp),
+                        onClick = onBackClick,
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_back_arrow),
@@ -54,12 +54,16 @@ fun RedeemScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
+                modifier = Modifier.padding(horizontal = 10.dp),
                 scrollBehavior = scrollBehavior
             )
         }
-    ) {
-        innerPadding -> val screenModifier = Modifier.padding(innerPadding)
-        RedeemScreenContent(redeemable, screenModifier)
+    ) { innerPadding ->
+        val screenModifier = Modifier.padding(innerPadding)
+        RedeemScreenContent(
+            redeemable,
+            screenModifier.padding(30.dp, 10.dp, 30.dp, 0.dp)
+        )
     }
 }
 
@@ -77,6 +81,6 @@ fun RedeemScreenContent(
         verticalArrangement = Arrangement.spacedBy(50.dp),
         modifier = modifier
             .fillMaxWidth(),
-        contentPadding = PaddingValues(30.dp, 10.dp, 30.dp, 30.dp)
+        contentPadding = PaddingValues(bottom = 30.dp)
     )
 }
