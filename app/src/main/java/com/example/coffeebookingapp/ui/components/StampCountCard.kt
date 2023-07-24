@@ -19,6 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.ui.theme.light_onPrimary2
+import java.lang.Integer.min
+import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,6 +29,7 @@ fun StampCountCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
+    val stampCount = min(abs(stampCount), 8)
     Card(
         modifier = modifier
             .fillMaxWidth(),

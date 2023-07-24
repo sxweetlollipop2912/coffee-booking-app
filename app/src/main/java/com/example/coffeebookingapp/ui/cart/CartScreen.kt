@@ -149,14 +149,13 @@ fun CartScreenContent(
                                 }
                             }
                         }
-                    },
-                    dismissContent = {
-                        CartItemCard(
-                            item = items[index],
-                            onClick = { onNavigateToDetails(items[index]) },
-                        )
                     }
-                )
+                ) {
+                    CartItemCard(
+                        item = items[index],
+                        onClick = { onNavigateToDetails(items[index]) },
+                    )
+                }
             }
         }
         Row(

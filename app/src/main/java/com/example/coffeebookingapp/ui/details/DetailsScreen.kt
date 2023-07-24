@@ -151,34 +151,27 @@ fun DetailsScreenContent(
                     CoffeeAvatar(coffee = product, width = 200.dp)
                 }
             }
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
+            OptionRow(
+                title = product,
+                modifier = Modifier.height(48.dp)
             ) {
-                Text(
-                    text = product,
-                    style = MaterialTheme.typography.labelLarge,
-                )
                 QuantityButton(
                     quantity = option.quantity,
                     onIncrease = onIncQuantity,
                     onDecrease = onDecQuantity,
+                    width = 85.dp,
+                    modifier = Modifier
+                        .height(36.dp),
                 )
             }
             Divider(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
+            OptionRow(
+                title = "Shot",
+                modifier = Modifier.height(48.dp),
             ) {
-                Text(
-                    text = "Shot",
-                    style = MaterialTheme.typography.labelLarge,
-                )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.CenterVertically,
@@ -196,6 +189,7 @@ fun DetailsScreenContent(
                             else light_inactive
                         ),
                         contentPadding = PaddingValues(20.dp, 0.dp),
+                        modifier = Modifier.height(36.dp),
                     ) {
                         Text(
                             text = "Single",
@@ -214,6 +208,7 @@ fun DetailsScreenContent(
                             else light_inactive
                         ),
                         contentPadding = PaddingValues(20.dp, 0.dp),
+                        modifier = Modifier.height(36.dp),
                     ) {
                         Text(
                             text = "Double",
@@ -226,15 +221,10 @@ fun DetailsScreenContent(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
+            OptionRow(
+                title = "Select",
+                modifier = Modifier.height(48.dp),
             ) {
-                Text(
-                    text = "Select",
-                    style = MaterialTheme.typography.labelLarge,
-                )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.CenterVertically,
@@ -262,15 +252,10 @@ fun DetailsScreenContent(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
+            OptionRow(
+                title = "Size",
+                modifier = Modifier.height(48.dp),
             ) {
-                Text(
-                    text = "Size",
-                    style = MaterialTheme.typography.labelLarge,
-                )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.Bottom,
@@ -315,15 +300,10 @@ fun DetailsScreenContent(
                 color = MaterialTheme.colorScheme.outlineVariant,
                 thickness = 1.dp,
             )
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
+            OptionRow(
+                title = "Ice",
+                modifier = Modifier.height(48.dp),
             ) {
-                Text(
-                    text = "Ice",
-                    style = MaterialTheme.typography.labelLarge,
-                )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
                     verticalAlignment = Alignment.Bottom,
@@ -356,7 +336,9 @@ fun DetailsScreenContent(
                 }
             }
         }
-        Column {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -381,5 +363,24 @@ fun DetailsScreenContent(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun OptionRow(
+    modifier: Modifier = Modifier,
+    title: String,
+    content: @Composable () -> Unit,
+) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth(),
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.labelLarge,
+        )
+        content()
     }
 }

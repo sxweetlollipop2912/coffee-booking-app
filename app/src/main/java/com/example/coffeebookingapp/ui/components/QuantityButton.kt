@@ -1,8 +1,11 @@
 package com.example.coffeebookingapp.ui.components
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
@@ -18,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -25,6 +29,7 @@ fun QuantityButton(
     quantity: Int,
     onIncrease: () -> Unit,
     onDecrease: () -> Unit,
+    width: Dp,
     modifier: Modifier = Modifier
 ) {
     OutlinedCard(
@@ -33,16 +38,23 @@ fun QuantityButton(
             containerColor = Color.Transparent
         ),
         border = BorderStroke(1.2.dp, MaterialTheme.colorScheme.outlineVariant),
-        modifier = modifier
+        modifier = modifier.width(width),
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(2.dp)
         ) {
-            IconButton(onClick = onDecrease) {
+            IconButton(
+                onClick = onDecrease,
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .size(32.dp),
+            ) {
                 Icon(
                     Icons.Rounded.Remove,
                     contentDescription = "decrease quantity",
+                    modifier = Modifier.size(16.dp),
                 )
             }
             Text(
@@ -52,11 +64,19 @@ fun QuantityButton(
                         includeFontPadding = false
                     )
                 ),
+                modifier = Modifier
+                    .align(Alignment.Center)
             )
-            IconButton(onClick = onIncrease) {
+            IconButton(
+                onClick = onIncrease,
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .size(32.dp),
+            ) {
                 Icon(
                     Icons.Rounded.Add,
                     contentDescription = "increase quantity",
+                    modifier = Modifier.size(16.dp),
                 )
             }
         }
