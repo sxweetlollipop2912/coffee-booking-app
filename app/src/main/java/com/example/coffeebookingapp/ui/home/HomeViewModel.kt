@@ -21,7 +21,9 @@ class HomeViewModel(
         SharingStarted.WhileSubscribed(5000),
         0
     )
-    val products = repository.getProducts()
+    val products = viewModelScope.run {
+        return@run repository.getProducts()
+    }
 
     fun resetStampCount() {
         viewModelScope.launch {

@@ -27,7 +27,7 @@ import com.example.coffeebookingapp.ui.theme.light_onSurface2
 fun CartItemCard(
     item: CartItem,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier

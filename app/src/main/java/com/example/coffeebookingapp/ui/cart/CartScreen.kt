@@ -38,7 +38,7 @@ import kotlin.math.abs
 @Composable
 fun CartScreen(
     items: List<CartItem>,
-    onNavigateToDetails: (String) -> Unit,
+    onNavigateToDetails: (CartItem) -> Unit,
     onRemoveItem: (String) -> Unit,
     onCheckOut: () -> Unit,
     onBackClick: () -> Unit,
@@ -82,77 +82,76 @@ fun CartScreen(
 @OptIn(ExperimentalMaterialApi::class)
 fun CartScreenContent(
     items: List<CartItem>,
-    onNavigateToDetails: (String) -> Unit,
+    onNavigateToDetails: (CartItem) -> Unit,
     onRemoveItem: (String) -> Unit,
     onCheckOut: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val totalPrice = items.map { it.price }.reduce { acc, price -> acc + price }
+    val totalPrice = items.sumOf { it.price }
     Column(
         modifier = modifier
             .padding(bottom = 15.dp),
         verticalArrangement = Arrangement.spacedBy(15.dp),
     ) {
         LazyColumn(
-            content = {
-                items(items.size) { index ->
-                    val dismissState = rememberDismissState()
-                    if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-                        onRemoveItem(items[index].id)
-                    } else {
-                        SwipeToDismiss(
-                            state = dismissState,
-                            directions = setOf(DismissDirection.EndToStart),
-                            dismissThresholds = {
-                                FractionalThreshold(0.5f)
-                            },
-                            background = {
-                                Box(
-                                    Modifier.fillMaxSize(),
-                                ) {
-                                    Card(
-                                        modifier = Modifier
-                                            .fillMaxHeight()
-                                            .width(with(LocalDensity.current) {
-                                                maxOf(
-                                                    abs(dismissState.offset.value).toDp() - 10.dp,
-                                                    0.dp
-                                                )
-                                            })
-                                            .align(Alignment.CenterEnd),
-                                        shape = RoundedCornerShape(15.dp),
-                                        colors = CardDefaults.cardColors(
-                                            containerColor = MaterialTheme.colorScheme.errorContainer
-                                        )
-                                    ) {
-                                        Box(
-                                            modifier = Modifier.fillMaxSize()
-                                        ) {
-                                            Icon(
-                                                painter = painterResource(R.drawable.ic_delete),
-                                                contentDescription = "delete item",
-                                                tint = MaterialTheme.colorScheme.onErrorContainer,
-                                                modifier = Modifier.align(Alignment.Center)
-                                            )
-                                        }
-                                    }
-                                }
-                            },
-                            dismissContent = {
-                                CartItemCard(
-                                    item = items[index],
-                                    onClick = { onNavigateToDetails(items[index].id) },
-                                )
-                            }
-                        )
-                    }
-                }
-            },
             verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(weight = 1f),
-        )
+        ) {
+            items(items.size) { index ->
+                val dismissState = rememberDismissState()
+                if (dismissState.isDismissed(DismissDirection.EndToStart)) {
+                    onRemoveItem(items[index].id)
+                } else {
+                    SwipeToDismiss(
+                        state = dismissState,
+                        directions = setOf(DismissDirection.EndToStart),
+                        dismissThresholds = {
+                            FractionalThreshold(0.5f)
+                        },
+                        background = {
+                            Box(
+                                Modifier.fillMaxSize(),
+                            ) {
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxHeight()
+                                        .width(with(LocalDensity.current) {
+                                            maxOf(
+                                                abs(dismissState.offset.value).toDp() - 10.dp,
+                                                0.dp
+                                            )
+                                        })
+                                        .align(Alignment.CenterEnd),
+                                    shape = RoundedCornerShape(15.dp),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.errorContainer
+                                    )
+                                ) {
+                                    Box(
+                                        modifier = Modifier.fillMaxSize()
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.ic_delete),
+                                            contentDescription = "delete item",
+                                            tint = MaterialTheme.colorScheme.onErrorContainer,
+                                            modifier = Modifier.align(Alignment.Center)
+                                        )
+                                    }
+                                }
+                            }
+                        },
+                        dismissContent = {
+                            CartItemCard(
+                                item = items[index],
+                                onClick = { onNavigateToDetails(items[index]) },
+                            )
+                        }
+                    )
+                }
+            }
+        }
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,

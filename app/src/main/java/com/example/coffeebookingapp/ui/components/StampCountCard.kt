@@ -25,7 +25,7 @@ import com.example.coffeebookingapp.ui.theme.light_onPrimary2
 fun StampCountCard(
     stampCount: Int,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier

@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,18 +21,25 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.PointReward
+import com.example.coffeebookingapp.ui.components.BottomBar
+import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.PointCard
 import com.example.coffeebookingapp.ui.components.RewardHistorySlot
 import com.example.coffeebookingapp.ui.components.StampCountCard
+import com.example.coffeebookingapp.ui.navigation.NavRoutes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RewardsScreen(
     stampCount: Int,
     points: Int,
-    rewards: List<PointReward>,
+    history: List<PointReward>,
+    onStampCardClick: () -> Unit,
+    onRedeemDrinksClick: () -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -49,14 +58,28 @@ fun RewardsScreen(
                 ),
                 scrollBehavior = scrollBehavior
             )
-        }
+        },
+        bottomBar = {
+            BottomBar(
+                tabs = BottomBarTab.values(),
+                currentRoute = NavRoutes.Main.REWARDS_HISTORY,
+                navigateToBottomBarRoute = onNavigateToBottomBarRoute
+            )
+        },
     ) { innerPadding ->
-        val screenModifier = Modifier.padding(innerPadding)
+        val screenModifier = Modifier.padding(
+            innerPadding.calculateStartPadding(LayoutDirection.Ltr),
+            innerPadding.calculateTopPadding(),
+            innerPadding.calculateEndPadding(LayoutDirection.Ltr),
+            0.dp,
+        )
         RewardsScreenContent(
             stampCount,
             points,
-            rewards,
-            screenModifier.padding(horizontal = 30.dp)
+            history,
+            onStampCardClick,
+            onRedeemDrinksClick,
+            screenModifier.padding(start = 30.dp, end = 30.dp, bottom = 20.dp)
         )
     }
 }
@@ -65,40 +88,47 @@ fun RewardsScreen(
 fun RewardsScreenContent(
     stampCount: Int,
     points: Int,
-    rewards: List<PointReward>,
+    history: List<PointReward>,
+    onStampCardClick: () -> Unit,
+    onRedeemDrinksClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        content = {
-            item {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(15.dp),
-                ) {
-                    StampCountCard(stampCount = stampCount)
-                    PointCard(points = points)
-                }
-            }
-            item {
-                Spacer(modifier = Modifier.height(15.dp))
-                Text(
-                    text = "History Rewards",
-                    style = MaterialTheme.typography.labelLarge,
-                )
-            }
-            items(rewards.size) { index ->
-                RewardHistorySlot(reward = rewards[index])
-                if (index < rewards.lastIndex) {
-                    Spacer(modifier = Modifier.height(15.dp))
-                    Divider(
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        thickness = 1.dp
-                    )
-                }
-            }
-        },
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = modifier
             .fillMaxWidth(),
         contentPadding = PaddingValues(bottom = 100.dp)
-    )
+    ) {
+        item {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(15.dp),
+            ) {
+                StampCountCard(
+                    stampCount = stampCount,
+                    onClick = onStampCardClick
+                )
+                PointCard(
+                    points = points,
+                    onRedeemClick = onRedeemDrinksClick
+                )
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "History Rewards",
+                style = MaterialTheme.typography.labelLarge,
+            )
+        }
+        items(history.size) { index ->
+            RewardHistorySlot(reward = history[index])
+            if (index < history.lastIndex) {
+                Spacer(modifier = Modifier.height(15.dp))
+                Divider(
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    thickness = 1.dp
+                )
+            }
+        }
+    }
 }

@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,11 +30,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.ui.CoffeeAvatar
+import com.example.coffeebookingapp.ui.components.BottomBar
+import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.StampCountCard
+import com.example.coffeebookingapp.ui.navigation.NavRoutes
 import com.example.coffeebookingapp.ui.theme.light_darkPrimary
 import com.example.coffeebookingapp.ui.theme.light_onBackground2
 import com.example.coffeebookingapp.ui.theme.light_onPrimary2
@@ -47,6 +53,7 @@ fun HomeScreen(
     onProfileClick: () -> Unit,
     onStampCountClick: () -> Unit,
     onCoffeeClick: (String) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -104,9 +111,21 @@ fun HomeScreen(
                 modifier = Modifier
                     .padding(10.dp, 15.dp)
             )
-        }
+        },
+        bottomBar = {
+            BottomBar(
+                tabs = BottomBarTab.values(),
+                currentRoute = NavRoutes.Main.HOME,
+                navigateToBottomBarRoute = onNavigateToBottomBarRoute
+            )
+        },
     ) { innerPadding ->
-        val screenModifier = Modifier.padding(innerPadding)
+        val screenModifier = Modifier.padding(
+            innerPadding.calculateStartPadding(LayoutDirection.Ltr),
+            innerPadding.calculateTopPadding(),
+            innerPadding.calculateEndPadding(LayoutDirection.Ltr),
+            0.dp,
+        )
         HomeScreenContent(
             stampCount,
             coffees,
@@ -140,7 +159,7 @@ fun HomeScreenContent(
                 .fillMaxSize()
                 .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(26.dp),
+                .padding(start = 26.dp, end = 26.dp, top = 26.dp, bottom = 20.dp),
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -157,7 +176,7 @@ fun HomeScreenContent(
                     modifier = Modifier.fillMaxSize(),
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp),
-                    contentPadding = PaddingValues(0.dp, 0.dp, 0.dp, 100.dp),
+                    contentPadding = PaddingValues(bottom = 100.dp),
                 ) {
                     items(coffees.size) { idx ->
                         Card(

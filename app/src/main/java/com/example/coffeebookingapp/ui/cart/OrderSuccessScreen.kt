@@ -1,8 +1,9 @@
-package com.example.coffeebookingapp.ui.order_success
+package com.example.coffeebookingapp.ui.cart
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,7 @@ fun OrderSuccessScreen(
     Column(
         modifier = modifier
             .padding(30.dp)
+            .fillMaxHeight()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,

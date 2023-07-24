@@ -29,7 +29,7 @@ import com.example.coffeebookingapp.ui.theme.light_onPrimary2
 fun PointCard(
     points: Int,
     modifier: Modifier = Modifier,
-    onRedeemClick: () -> Unit = {},
+    onRedeemClick: () -> Unit,
 ) {
     Box {
         Card(

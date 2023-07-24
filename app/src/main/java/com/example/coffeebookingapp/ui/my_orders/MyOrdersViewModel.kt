@@ -1,4 +1,4 @@
-package com.example.coffeebookingapp.ui.my_order
+package com.example.coffeebookingapp.ui.my_orders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,29 +9,29 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 
-class MyOrderViewModel(
+class MyOrdersViewModel(
     private val repository: MainRepository
 ) : ViewModel() {
     val ongoing = repository.observeOngoingOrders().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        emptySet()
+        emptyList()
     )
     val history = repository.observeHistoryOrders().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        emptySet()
+        emptyList()
     )
 
-    fun moveToHistory(orderID: String) {
+    fun moveToHistory(orderId: String) {
         viewModelScope.launch {
-            repository.moveToHistory(orderID)
+            repository.moveToHistory(orderId)
         }
     }
 
-    fun moveToOngoing(orderID: String) {
+    fun moveToOngoing(orderId: String) {
         viewModelScope.launch {
-            repository.moveToOngoing(orderID)
+            repository.moveToOngoing(orderId)
         }
     }
 
@@ -41,7 +41,7 @@ class MyOrderViewModel(
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MyOrderViewModel(repository) as T
+                return MyOrdersViewModel(repository) as T
             }
         }
     }

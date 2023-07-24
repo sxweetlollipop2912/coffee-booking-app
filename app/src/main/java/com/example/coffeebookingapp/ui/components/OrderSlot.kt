@@ -21,8 +21,8 @@ import com.example.coffeebookingapp.ui.theme.light_onBackground2
 @Composable
 fun OrderSlot(
     order: Order,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier

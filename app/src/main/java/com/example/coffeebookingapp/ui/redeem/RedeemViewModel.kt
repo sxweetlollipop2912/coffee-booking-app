@@ -17,9 +17,9 @@ class RedeemViewModel(
         emptyList()
     )
 
-    fun redeemProduct(redeemableId: String) {
-        viewModelScope.launch {
-            repository.redeemProduct(redeemableId)
+    fun checkIfRedeemable(redeemableId: String): Boolean {
+        viewModelScope.run {
+            return repository.checkIfRedeemable(redeemableId)
         }
     }
 

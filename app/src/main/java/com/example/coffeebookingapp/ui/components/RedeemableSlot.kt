@@ -22,7 +22,7 @@ import com.example.coffeebookingapp.ui.theme.light_onBackground2
 fun RedeemableSlot(
     redeemable: Redeemable,
     modifier: Modifier = Modifier,
-    onRedeemableClick: () -> Unit = {},
+    onButtonClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -53,7 +53,7 @@ fun RedeemableSlot(
             }
         }
         Button(
-            onClick = onRedeemableClick,
+            onClick = onButtonClick,
             shape = RoundedCornerShape(50.dp),
             contentPadding = PaddingValues(17.dp, 0.dp),
             modifier = Modifier.align(Alignment.CenterEnd)

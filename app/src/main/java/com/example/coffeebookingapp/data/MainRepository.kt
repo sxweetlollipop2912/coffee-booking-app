@@ -18,10 +18,12 @@ interface MainRepository {
     fun changeAddress(upd: String)
 
     fun getProducts(): List<String>
-    fun getPrice(product: String, option: ProductOption): Double
+    fun getPrice(product: String, option: ProductOption, isRedeem: Boolean): Double
 
     fun observeCart(): Flow<List<CartItem>>
-    fun addToCart(cartItem: CartItem)
+    fun getCartItem(itemId: String): CartItem?
+    fun addToCart(product: String, option: ProductOption, redeemableId: String?)
+    fun modifyCartItem(cardId: String, option: ProductOption): Boolean
     fun removeFromCart(itemId: String)
 
     fun observeStampCount(): Flow<Int>
@@ -29,13 +31,14 @@ interface MainRepository {
 
     fun observePoints(): Flow<Int>
     fun observeRedeemableProducts(): Flow<List<Redeemable>>
+    fun checkIfRedeemable(redeemableId: String): Boolean
     fun redeemProduct(redeemableId: String): Boolean
     fun observePointsHistory(): Flow<List<PointReward>>
 
     fun observeCheckedOutOrders(): Flow<List<Order>>
     fun checkOut(): Boolean
-    fun moveToHistory(orderID: String): Boolean
-    fun moveToOngoing(orderID: String): Boolean
-    fun observeOngoingOrders(): Flow<Set<Order>>
-    fun observeHistoryOrders(): Flow<Set<Order>>
+    fun moveToHistory(orderId: String): Boolean
+    fun moveToOngoing(orderId: String): Boolean
+    fun observeOngoingOrders(): Flow<List<Order>>
+    fun observeHistoryOrders(): Flow<List<Order>>
 }

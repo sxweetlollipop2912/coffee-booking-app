@@ -38,15 +38,15 @@ class ProfileViewModel(
         }
     }
 
-    fun changePhone(string: String) {
-        viewModelScope.launch {
-            repository.changePhone(string)
+    fun changePhone(string: String): Boolean {
+        viewModelScope.run {
+            return repository.changePhone(string)
         }
     }
 
-    fun changeEmail(string: String) {
-        viewModelScope.launch {
-            repository.changeEmail(string)
+    fun changeEmail(string: String): Boolean {
+        viewModelScope.run {
+            return repository.changeEmail(string)
         }
     }
 

@@ -27,6 +27,7 @@ import com.example.coffeebookingapp.ui.components.RedeemableSlot
 @Composable
 fun RedeemScreen(
     redeemable: List<Redeemable>,
+    onRedeemableClick: (Redeemable) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -62,6 +63,7 @@ fun RedeemScreen(
         val screenModifier = Modifier.padding(innerPadding)
         RedeemScreenContent(
             redeemable,
+            onRedeemableClick,
             screenModifier.padding(30.dp, 10.dp, 30.dp, 0.dp)
         )
     }
@@ -70,17 +72,20 @@ fun RedeemScreen(
 @Composable
 fun RedeemScreenContent(
     redeemable: List<Redeemable>,
+    onRedeemableClick: (Redeemable) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        content = {
-            items(redeemable.size) { index ->
-                RedeemableSlot(redeemable = redeemable[index])
-            }
-        },
         verticalArrangement = Arrangement.spacedBy(50.dp),
         modifier = modifier
             .fillMaxWidth(),
         contentPadding = PaddingValues(bottom = 30.dp)
-    )
+    ) {
+        items(redeemable.size) { index ->
+            RedeemableSlot(
+                redeemable = redeemable[index],
+                onButtonClick = { onRedeemableClick(redeemable[index]) },
+            )
+        }
+    }
 }
