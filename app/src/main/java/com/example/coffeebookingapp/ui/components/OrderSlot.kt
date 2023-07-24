@@ -1,6 +1,5 @@
 package com.example.coffeebookingapp.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,12 +20,10 @@ import com.example.coffeebookingapp.ui.theme.light_onBackground2
 @Composable
 fun OrderSlot(
     order: Order,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
-            .clickable(onClick = onClick)
             .fillMaxWidth(),
     ) {
         Column(

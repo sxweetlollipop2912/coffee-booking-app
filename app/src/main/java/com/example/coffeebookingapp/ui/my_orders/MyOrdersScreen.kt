@@ -1,17 +1,24 @@
 package com.example.coffeebookingapp.ui.my_orders
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.DismissDirection
+import androidx.compose.material.DismissValue
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FractionalThreshold
+import androidx.compose.material.SwipeToDismiss
+import androidx.compose.material.rememberDismissState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,9 +29,11 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.Order
@@ -98,7 +107,7 @@ fun MyOrdersScreen(
             tabContents,
             currentSection,
             setSection,
-            screenModifier.padding(horizontal = 30.dp)
+            screenModifier
         )
     }
 }
@@ -159,6 +168,7 @@ fun getTabContents(
     return listOf(firstSection, secondSection)
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SectionContent(
     orders: List<Order>,
@@ -166,17 +176,48 @@ fun SectionContent(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(15.dp),
         contentPadding = PaddingValues(bottom = 100.dp),
         modifier = modifier
             .fillMaxWidth()
     ) {
-        items(orders.size) { idx ->
-            OrderSlot(
-                orders[idx],
-                { onOrderClick(orders[idx].id) }
-            )
-            Spacer(modifier = Modifier.height(15.dp))
+        items(
+            count = orders.size,
+            key = { index -> orders[index].id },
+        ) { idx ->
+            val dismissState = rememberDismissState()
+            if (dismissState.isDismissed(DismissDirection.StartToEnd)
+                || dismissState.isDismissed(DismissDirection.EndToStart)) {
+                onOrderClick(orders[idx].id)
+            }
+            SwipeToDismiss(
+                state = dismissState,
+                dismissThresholds = {
+                    FractionalThreshold(0.5f)
+                },
+                background = {
+                    val color by animateColorAsState(
+                        when (dismissState.targetValue) {
+                            DismissValue.Default -> Color.Transparent
+                            else -> light_inactive
+                        },
+                        label = ""
+                    )
+                    Box(Modifier
+                        .fillMaxSize()
+                        .background(color)
+                    )
+                },
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clickable { onOrderClick(orders[idx].id) }
+                        .padding(horizontal = 30.dp, vertical = 15.dp)
+                ) {
+                    OrderSlot(
+                        orders[idx]
+                    )
+                }
+            }
             Divider(
                 color = MaterialTheme.colorScheme.outlineVariant
             )
