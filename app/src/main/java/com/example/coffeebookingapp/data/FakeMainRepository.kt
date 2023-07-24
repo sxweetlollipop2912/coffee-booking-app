@@ -13,6 +13,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import java.lang.Integer.min
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.UUID
+
 
 class FakeMainRepository : MainRepository {
     private val basePrice = 1.0
@@ -29,8 +35,8 @@ class FakeMainRepository : MainRepository {
     private val cart = MutableStateFlow(
         listOf(
             CartItem(
-                "1",
-                "Americano",
+                newUUID(),
+                products[0],
                 1.0,
                 ProductOption(
                     1,
@@ -42,8 +48,8 @@ class FakeMainRepository : MainRepository {
                 null,
             ),
             CartItem(
-                "2",
-                "Cappuccino",
+                newUUID(),
+                products[1],
                 1.0,
                 ProductOption(
                     1,
@@ -55,8 +61,8 @@ class FakeMainRepository : MainRepository {
                 null,
             ),
             CartItem(
-                "3",
-                "Flat White",
+                newUUID(),
+                products[2],
                 1.25,
                 ProductOption(
                     1,
@@ -68,8 +74,8 @@ class FakeMainRepository : MainRepository {
                 null,
             ),
             CartItem(
-                "4",
-                "Mocha",
+                newUUID(),
+                products[3],
                 1.5,
                 ProductOption(
                     1,
@@ -81,8 +87,8 @@ class FakeMainRepository : MainRepository {
                 null,
             ),
             CartItem(
-                "5",
-                "Americano",
+                newUUID(),
+                products[1],
                 2.0,
                 ProductOption(
                     2,
@@ -98,9 +104,9 @@ class FakeMainRepository : MainRepository {
 
     private val redeemables = MutableStateFlow(
         listOf(
-            Redeemable("1", "Americano", "04.07.21", 1340),
-            Redeemable("2", "Flat White", "04.07.21", 1340),
-            Redeemable("3", "Cappuccino", "04.07.21", 1340),
+            Redeemable(newUUID(), products[0], now(false), 1340),
+            Redeemable(newUUID(), products[1], "04.07.21", 1340),
+            Redeemable(newUUID(), products[2], "04.07.21", 1340),
         )
     )
 
@@ -108,50 +114,50 @@ class FakeMainRepository : MainRepository {
     private val pointsHistory = MutableStateFlow(
         listOf(
             PointReward(
-                id = "1",
-                product = "Americano",
+                id = newUUID(),
+                product = products[0],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "2",
-                product = "Cappuccino",
+                id = newUUID(),
+                product = products[1],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "3",
-                product = "Flat White",
+                id = newUUID(),
+                product = products[2],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "4",
-                product = "Americano",
+                id = newUUID(),
+                product = products[3],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "5",
-                product = "Mocha",
+                id = newUUID(),
+                product = products[4],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "6",
-                product = "Americano",
+                id = newUUID(),
+                product = products[0],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "7",
-                product = "Cappuccino",
+                id = newUUID(),
+                product = products[1],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
             PointReward(
-                id = "8",
-                product = "Flat White",
+                id = newUUID(),
+                product = products[2],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
@@ -160,14 +166,14 @@ class FakeMainRepository : MainRepository {
 
     private val checkedOutOrders = MutableStateFlow(
         listOf(
-            Order("1", "Cappuccino", "2021-10-01 10:00", 20.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order("2", "Cappuccino", "2021-10-02 10:00", 21.0, "Jl. Raya Kebayoran Lama No. 13"),
-            Order("3", "Cappuccino", "2021-10-03 10:00", 22.0, "Jl. Raya Kebayoran Lama No. 14"),
-            Order("4", "Cappuccino", "2021-10-04 10:00", 23.0, "Jl. Raya Kebayoran Lama No. 15"),
-            Order("5", "Cappuccino", "2021-10-05 10:00", 24.0, "Jl. Raya Kebayoran Lama No. 16"),
-            Order("6", "Cappuccino", "2021-10-06 10:00", 25.0, "Jl. Raya Kebayoran Lama No. 17"),
-            Order("7", "Cappuccino", "2021-10-07 10:00", 26.0, "Jl. Raya Kebayoran Lama No. 18"),
-            Order("8", "Cappuccino", "2021-10-08 10:00", 27.0, "Jl. Raya Kebayoran Lama No. 19"),
+            Order(newUUID(), products[0], now(true), 3.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[1], "25 June | 12:30 PM", 4.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[2], "26 June | 12:30 PM", 5.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[3], "27 June | 12:30 PM", 6.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[4], "28 June | 12:30 PM", 7.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[0], "29 June | 12:30 PM", 8.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[1], "30 June | 12:30 PM", 9.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(newUUID(), products[2], "01 July | 12:30 PM", 10.0, "Jl. Raya Kebayoran Lama No. 12"),
         )
     )
     private val ongoingOrders = MutableStateFlow(checkedOutOrders.value)
@@ -233,7 +239,7 @@ class FakeMainRepository : MainRepository {
     override fun addToCart(product: String, option: ProductOption, redeemableId: String?) {
         cart.update {
             it + CartItem(
-                id = (it.last().id.toInt() + 1).toString(),
+                id = newUUID(),
                 product = product,
                 price = getPrice(product, option, redeemableId != null),
                 option = option,
@@ -311,9 +317,9 @@ class FakeMainRepository : MainRepository {
         val pointsHistory = mutableListOf<PointReward>()
         for (item in cart.value) {
             val order = Order(
-                id = (checkedOutOrders.value.last().id.toInt() + 1).toString(),
+                id = newUUID(),
                 product = item.product,
-                datetime = "23 July | 01:06 AM",
+                datetime = now(true),
                 price = item.price,
                 address = address.value
             )
@@ -322,10 +328,10 @@ class FakeMainRepository : MainRepository {
             val pointsAdded = (item.price * 10).toInt()
             pointsHistory.add(
                 PointReward(
-                    id = (pointsHistory.last().id.toInt() + 1).toString(),
+                    id = newUUID(),
                     product = item.product,
                     points = pointsAdded,
-                    datetime = "23 July | 01:06 AM"
+                    datetime = now(true)
                 )
             )
             points.update { it + pointsAdded }
@@ -362,4 +368,20 @@ class FakeMainRepository : MainRepository {
     override fun observeHistoryOrders(): Flow<List<Order>> {
         return historyOrders
     }
+}
+
+private fun newUUID(): String {
+    return UUID.randomUUID().toString()
+}
+
+private fun now(extended: Boolean): String {
+    val now: Date = Calendar.getInstance().time
+    val formatter = if (extended) {
+        // 24 June | 12:30 PM
+        SimpleDateFormat("dd MMMM | hh:mm a", Locale.getDefault())
+    } else {
+        // 04.07.21
+        SimpleDateFormat("dd.MM.yy", Locale.getDefault())
+    }
+    return formatter.format(now)
 }
