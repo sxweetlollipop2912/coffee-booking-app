@@ -24,7 +24,7 @@ interface MainRepository {
     fun getCartItem(itemId: String): CartItem?
     fun addToCart(product: String, option: ProductOption, redeemableId: String?)
     fun modifyCartItem(cardId: String, option: ProductOption): Boolean
-    fun removeFromCart(itemId: String)
+    fun removeFromCart(itemId: String): Boolean
 
     fun observeStampCount(): Flow<Int>
     fun resetStampCount()

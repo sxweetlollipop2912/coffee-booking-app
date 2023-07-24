@@ -260,8 +260,10 @@ class FakeMainRepository : MainRepository {
         return exists
     }
 
-    override fun removeFromCart(itemId: String) {
-        cart.update { it.filter { item -> item.id != itemId } }
+    override fun removeFromCart(itemId: String): Boolean {
+        val item = cart.value.find { it.id == itemId } ?: return false
+        cart.update { it - item }
+        return true
     }
 
     override fun observeStampCount(): Flow<Int> {

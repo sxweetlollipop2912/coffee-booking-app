@@ -27,10 +27,9 @@ class CartViewModel(
         emptyList()
     )
 
-    fun removeFromCart(itemId: String) {
-        val item = items.value.find { it.id == itemId } ?: return
-        viewModelScope.launch {
-            repository.removeFromCart(itemId)
+    fun removeFromCart(itemId: String): Boolean {
+        viewModelScope.run {
+            return repository.removeFromCart(itemId)
         }
     }
 

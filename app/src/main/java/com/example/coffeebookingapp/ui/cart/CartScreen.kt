@@ -20,6 +20,7 @@ import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.rememberDismissState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -39,7 +40,7 @@ import kotlin.math.abs
 fun CartScreen(
     items: List<CartItem>,
     onNavigateToDetails: (CartItem) -> Unit,
-    onRemoveItem: (String) -> Unit,
+    onRemoveItem: (String) -> Boolean,
     onCheckOut: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -83,7 +84,7 @@ fun CartScreen(
 fun CartScreenContent(
     items: List<CartItem>,
     onNavigateToDetails: (CartItem) -> Unit,
-    onRemoveItem: (String) -> Unit,
+    onRemoveItem: (String) -> Boolean,
     onCheckOut: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -99,57 +100,63 @@ fun CartScreenContent(
                 .fillMaxWidth()
                 .weight(weight = 1f),
         ) {
-            items(items.size) { index ->
+            items(
+                count = items.size,
+                key = { index -> items[index].id },
+            ) { index ->
                 val dismissState = rememberDismissState()
                 if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-                    onRemoveItem(items[index].id)
-                } else {
-                    SwipeToDismiss(
-                        state = dismissState,
-                        directions = setOf(DismissDirection.EndToStart),
-                        dismissThresholds = {
-                            FractionalThreshold(0.5f)
-                        },
-                        background = {
-                            Box(
-                                Modifier.fillMaxSize(),
-                            ) {
-                                Card(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .width(with(LocalDensity.current) {
-                                            maxOf(
-                                                abs(dismissState.offset.value).toDp() - 10.dp,
-                                                0.dp
-                                            )
-                                        })
-                                        .align(Alignment.CenterEnd),
-                                    shape = RoundedCornerShape(15.dp),
-                                    colors = CardDefaults.cardColors(
-                                        containerColor = MaterialTheme.colorScheme.errorContainer
-                                    )
-                                ) {
-                                    Box(
-                                        modifier = Modifier.fillMaxSize()
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(R.drawable.ic_delete),
-                                            contentDescription = "delete item",
-                                            tint = MaterialTheme.colorScheme.onErrorContainer,
-                                            modifier = Modifier.align(Alignment.Center)
+                    if (!onRemoveItem(items[index].id)) {
+                        LaunchedEffect(Unit) {
+                            dismissState.reset()
+                        }
+                    }
+                }
+                SwipeToDismiss(
+                    state = dismissState,
+                    directions = setOf(DismissDirection.EndToStart),
+                    dismissThresholds = {
+                        FractionalThreshold(0.5f)
+                    },
+                    background = {
+                        Box(
+                            Modifier.fillMaxSize(),
+                        ) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(with(LocalDensity.current) {
+                                        maxOf(
+                                            abs(dismissState.offset.value).toDp() - 10.dp,
+                                            0.dp
                                         )
-                                    }
+                                    })
+                                    .align(Alignment.CenterEnd),
+                                shape = RoundedCornerShape(15.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = MaterialTheme.colorScheme.errorContainer
+                                )
+                            ) {
+                                Box(
+                                    modifier = Modifier.fillMaxSize()
+                                ) {
+                                    Icon(
+                                        painter = painterResource(R.drawable.ic_delete),
+                                        contentDescription = "delete item",
+                                        tint = MaterialTheme.colorScheme.onErrorContainer,
+                                        modifier = Modifier.align(Alignment.Center)
+                                    )
                                 }
                             }
-                        },
-                        dismissContent = {
-                            CartItemCard(
-                                item = items[index],
-                                onClick = { onNavigateToDetails(items[index]) },
-                            )
                         }
-                    )
-                }
+                    },
+                    dismissContent = {
+                        CartItemCard(
+                            item = items[index],
+                            onClick = { onNavigateToDetails(items[index]) },
+                        )
+                    }
+                )
             }
         }
         Row(
