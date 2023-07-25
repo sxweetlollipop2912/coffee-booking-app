@@ -27,9 +27,9 @@ enum class BottomBarTab(
     @DrawableRes val iconId: Int,
     val route: NavRoutes.Main
 ) {
-    HOME("Home", R.drawable.ic_nav_home_active, NavRoutes.Main.HOME),
-    REWARDS("Rewards", R.drawable.ic_nav_rewards_active, NavRoutes.Main.REWARDS_HISTORY),
-    ORDERS("My Orders", R.drawable.ic_nav_orders_active, NavRoutes.Main.ORDERS),
+    HOME("Home", R.drawable.home_glow, NavRoutes.Main.HOME),
+    REWARDS("Rewards", R.drawable.rewards_glow, NavRoutes.Main.REWARDS_HISTORY),
+    ORDERS("My Orders", R.drawable.orders_glow, NavRoutes.Main.ORDERS),
 }
 
 @Composable

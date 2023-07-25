@@ -68,7 +68,7 @@ fun PointCard(
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                     ),
                     shape = RoundedCornerShape(5.dp),
-                    contentPadding = PaddingValues(10.dp, 0.dp)
+                    contentPadding = PaddingValues(horizontal = 10.dp)
                 ) {
                     Text(
                         text = "Redeem drinks",
@@ -78,7 +78,7 @@ fun PointCard(
             }
         }
         Image(
-            painter = painterResource(id = R.drawable.ic_rewards_decor),
+            painter = painterResource(id = R.drawable.decor_rewards),
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.BottomEnd)

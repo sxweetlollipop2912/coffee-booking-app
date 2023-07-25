@@ -65,7 +65,7 @@ fun ProfileScreen(
                         onClick = onBackClick,
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_back_arrow),
+                            painter = painterResource(R.drawable.back_arrow),
                             contentDescription = "back",
                         )
                     }
@@ -73,7 +73,7 @@ fun ProfileScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
-                modifier = Modifier.padding(10.dp, 0.dp),
+                modifier = Modifier.padding(horizontal = 10.dp),
             )
         }
     ) { innerPadding ->
@@ -87,7 +87,7 @@ fun ProfileScreen(
             onPhoneSubmit,
             onEmailSubmit,
             onAddressSubmit,
-            screenModifier.padding(15.dp, 0.dp)
+            screenModifier.padding(horizontal = 15.dp)
         )
     }
 }
@@ -109,25 +109,25 @@ fun ProfileScreenContent(
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         ProfileField(
-            iconDrawable = R.drawable.ic_profile_person,
+            iconDrawable = R.drawable.person,
             label = "Full name",
             content = fullName,
             onSubmit = onFullNameChanged,
         )
         ProfileField(
-            iconDrawable = R.drawable.ic_profile_phone,
+            iconDrawable = R.drawable.phone,
             label = "Phone number",
             content = phone,
             onSubmit = onPhoneChanged,
         )
         ProfileField(
-            iconDrawable = R.drawable.ic_profile_mail,
+            iconDrawable = R.drawable.mail,
             label = "Email",
             content = email,
             onSubmit = onEmailChanged,
         )
         ProfileField(
-            iconDrawable = R.drawable.ic_profile_location,
+            iconDrawable = R.drawable.location_profile,
             label = "Address",
             content = address,
             onSubmit = onAddressChanged,
@@ -175,7 +175,7 @@ private fun DisplayField(
 ) {
     BaseField(
         leftIconDrawable = iconDrawable,
-        rightIconDrawable = R.drawable.ic_profile_edit,
+        rightIconDrawable = R.drawable.edit,
         label = label,
         onRightIconClick = onEditClick,
         modifier = modifier
@@ -200,7 +200,7 @@ private fun EditField(
 ) {
     BaseField(
         leftIconDrawable = iconDrawable,
-        rightIconDrawable = R.drawable.ic_right_arrow,
+        rightIconDrawable = R.drawable.right_arrow,
         label = label,
         onRightIconClick = onSubmit,
         modifier = modifier

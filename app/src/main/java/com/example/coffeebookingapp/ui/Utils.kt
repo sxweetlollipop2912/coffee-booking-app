@@ -17,10 +17,10 @@ fun CoffeeAvatar(
 ) {
     val coffee = coffee.lowercase()
     val painter = when (coffee) {
-        "americano" -> painterResource(id = R.drawable.coffee_americano)
-        "cappuccino" -> painterResource(id = R.drawable.coffee_cappuccino)
-        "mocha" -> painterResource(id = R.drawable.coffee_mocha)
-        else -> painterResource(id = R.drawable.coffee_flatwhite)
+        "americano" -> painterResource(id = R.drawable.americano)
+        "cappuccino" -> painterResource(id = R.drawable.cappuccino)
+        "mocha" -> painterResource(id = R.drawable.mocha)
+        else -> painterResource(id = R.drawable.flatwhite)
     }
     Image(
         painter = painter,

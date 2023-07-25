@@ -80,14 +80,14 @@ fun StampCountCard(
                     // add ic_coffee_cup_active icon the number of stampCount times
                     for (i in 1..stampCount) {
                         Image(
-                            painter = painterResource(R.drawable.ic_coffee_cup_active),
+                            painter = painterResource(R.drawable.cup_glow),
                             contentDescription = null,
                         )
                     }
                     // add ic_coffee_cup_inactive icon the number of 8 - stampCount times
                     for (i in 1..(8 - stampCount)) {
                         Image(
-                            painter = painterResource(R.drawable.ic_coffee_cup_inactive),
+                            painter = painterResource(R.drawable.cup_noglow),
                             contentDescription = null,
                         )
                     }

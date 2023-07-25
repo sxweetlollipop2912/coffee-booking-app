@@ -38,7 +38,7 @@ fun OrderSuccessScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_takeaway),
+            painter = painterResource(R.drawable.takeaway),
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(20.dp))

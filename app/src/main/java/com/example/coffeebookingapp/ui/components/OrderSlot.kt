@@ -40,7 +40,7 @@ fun OrderSlot(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_orders_coffee),
+                    painter = painterResource(R.drawable.cup),
                     contentDescription = null,
                 )
                 Text(
@@ -53,7 +53,7 @@ fun OrderSlot(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_orders_location),
+                    painter = painterResource(R.drawable.location_orders),
                     contentDescription = null,
                 )
                 Text(

@@ -47,7 +47,7 @@ fun RedeemScreen(
                         onClick = onBackClick,
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_back_arrow),
+                            painter = painterResource(R.drawable.back_arrow),
                             contentDescription = "back",
                         )
                     }

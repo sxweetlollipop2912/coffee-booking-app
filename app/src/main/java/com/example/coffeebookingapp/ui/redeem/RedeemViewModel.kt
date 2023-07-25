@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.coffeebookingapp.data.MainRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 class RedeemViewModel(
     private val repository: MainRepository

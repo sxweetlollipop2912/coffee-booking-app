@@ -74,7 +74,7 @@ fun DetailsScreen(
                         onClick = onBackClick,
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_back_arrow),
+                            painter = painterResource(R.drawable.back_arrow),
                             contentDescription = "back",
                         )
                     }
@@ -84,7 +84,7 @@ fun DetailsScreen(
                         onClick = onCartClick,
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_cart),
+                            painter = painterResource(R.drawable.cart),
                             contentDescription = "go to cart",
                         )
                     }
@@ -232,7 +232,7 @@ fun DetailsScreenContent(
                     val current = option.temperature
                     IconButton(onClick = { onSetTemperature(TemperatureType.HOT) }) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_hot),
+                            painter = painterResource(R.drawable.cup_hot),
                             contentDescription = "select hot",
                             tint = if (current == TemperatureType.HOT) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -240,7 +240,7 @@ fun DetailsScreenContent(
                     }
                     IconButton(onClick = { onSetTemperature(TemperatureType.ICED) }) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_iced),
+                            painter = painterResource(R.drawable.cup_iced),
                             contentDescription = "select cold",
                             tint = if (current == TemperatureType.ICED) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -266,7 +266,7 @@ fun DetailsScreenContent(
                         modifier = Modifier.height(22.dp),
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_small),
+                            painter = painterResource(R.drawable.cup_small),
                             contentDescription = "select size small",
                             tint = if (current == SizeType.SMALL) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -277,7 +277,7 @@ fun DetailsScreenContent(
                         modifier = Modifier.height(31.dp),
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_medium),
+                            painter = painterResource(R.drawable.cup_medium),
                             contentDescription = "select size medium",
                             tint = if (current == SizeType.MEDIUM) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -288,7 +288,7 @@ fun DetailsScreenContent(
                         modifier = Modifier.height(38.dp),
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_large),
+                            painter = painterResource(R.drawable.cup_large),
                             contentDescription = "select size large",
                             tint = if (current == SizeType.LARGE) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -311,7 +311,7 @@ fun DetailsScreenContent(
                     val current = option.ice
                     IconButton(onClick = { onSetIce(IceType.LESS) }) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_ice1),
+                            painter = painterResource(R.drawable.ice1),
                             contentDescription = "select less ice",
                             tint = if (current == IceType.LESS) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -319,7 +319,7 @@ fun DetailsScreenContent(
                     }
                     IconButton(onClick = { onSetIce(IceType.HALF) }) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_ice2),
+                            painter = painterResource(R.drawable.ice2),
                             contentDescription = "select half ice",
                             tint = if (current == IceType.HALF) MaterialTheme.colorScheme.onBackground
                             else light_inactive
@@ -327,7 +327,7 @@ fun DetailsScreenContent(
                     }
                     IconButton(onClick = { onSetIce(IceType.FULL) }) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_details_select_ice3),
+                            painter = painterResource(R.drawable.ice3),
                             contentDescription = "select full ice",
                             tint = if (current == IceType.FULL) MaterialTheme.colorScheme.onBackground
                             else light_inactive

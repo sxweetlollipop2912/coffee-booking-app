@@ -43,13 +43,13 @@ import com.example.coffeebookingapp.ui.components.OrderSlot
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
 import com.example.coffeebookingapp.ui.theme.light_inactive
 
-enum class Section(val title: String) {
+enum class Tab(val title: String) {
     ONGOING("Ongoing"),
     HISTORY("History"),
 }
 
-data class TabContent(
-    val section: Section,
+data class TabContentData(
+    val tab: Tab,
     val content: @Composable () -> Unit
 )
 
@@ -63,16 +63,15 @@ fun MyOrdersScreen(
     onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val tabContents = getTabContents(
-        firstContent = ongoing,
-        secondContent = history,
-        onFirstContentClick = onOngoingClick,
-        onSecondContentClick = onHistoryClick,
-        modifier = Modifier.padding(bottom = 20.dp)
+    val tabContentData = listOf(
+        TabContentData(Tab.ONGOING) {
+            TabContent(ongoing, onOngoingClick, Modifier.padding(bottom = 20.dp))
+        },
+        TabContentData(Tab.HISTORY) {
+            TabContent(history, onHistoryClick, Modifier.padding(bottom = 20.dp))
+        }
     )
-    val (currentSection, setSection) = rememberSaveable {
-        mutableStateOf(tabContents.first().section)
-    }
+    val (currentTab, setTab) = rememberSaveable { mutableStateOf(tabContentData[0].tab) }
 
     Scaffold(
         modifier = modifier,
@@ -104,9 +103,9 @@ fun MyOrdersScreen(
             0.dp,
         )
         MyOrdersScreenContent(
-            tabContents,
-            currentSection,
-            setSection,
+            tabContentData,
+            currentTab,
+            setTab,
             screenModifier
         )
     }
@@ -114,63 +113,46 @@ fun MyOrdersScreen(
 
 @Composable
 fun MyOrdersScreenContent(
-    tabContents: List<TabContent>,
-    currentSection: Section,
-    onSetSection: (Section) -> Unit,
+    tabContentData: List<TabContentData>,
+    currentTab: Tab,
+    onSetTab: (Tab) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val selectedTabIndex = tabContents.indexOfFirst { it.section == currentSection }
+    val currentTabIdx = tabContentData.indexOfFirst { it.tab == currentTab }
     Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(15.dp)
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+        modifier = modifier.fillMaxWidth()
     ) {
         TabRow(
-            selectedTabIndex = selectedTabIndex,
+            selectedTabIndex = currentTabIdx,
             containerColor = MaterialTheme.colorScheme.background,
         ) {
-            tabContents.forEachIndexed { idx, content ->
+            tabContentData.forEachIndexed { idx, content ->
+                val selected = idx == currentTabIdx
                 Tab(
-                    selected = selectedTabIndex == idx,
-                    onClick = { onSetSection(content.section) },
+                    selected = selected,
+                    onClick = { onSetTab(content.tab) },
                     modifier = Modifier.padding(vertical = 12.dp)
                 ) {
                     Text(
-                        text = content.section.title,
-                        color = if (selectedTabIndex == idx) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                light_inactive
-                            },
+                        text = content.tab.title,
+                        color = if (selected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            light_inactive
+                        },
                         style = MaterialTheme.typography.titleMedium,
                     )
                 }
             }
         }
-        Box {
-            tabContents[selectedTabIndex].content()
-        }
+        tabContentData[currentTabIdx].content()
     }
-}
-
-fun getTabContents(
-    firstContent: List<Order>,
-    secondContent: List<Order>,
-    onFirstContentClick: (orderId: String) -> Unit,
-    onSecondContentClick: (orderId: String) -> Unit,
-    modifier: Modifier = Modifier
-): List<TabContent> {
-    val firstSection = TabContent(Section.ONGOING) {
-        SectionContent(firstContent, onFirstContentClick, modifier)
-    }
-    val secondSection = TabContent(Section.HISTORY) {
-        SectionContent(secondContent, onSecondContentClick, modifier)
-    }
-    return listOf(firstSection, secondSection)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SectionContent(
+fun TabContent(
     orders: List<Order>,
     onOrderClick: (orderId: String) -> Unit,
     modifier: Modifier = Modifier
@@ -186,7 +168,8 @@ fun SectionContent(
         ) { idx ->
             val dismissState = rememberDismissState()
             if (dismissState.isDismissed(DismissDirection.StartToEnd)
-                || dismissState.isDismissed(DismissDirection.EndToStart)) {
+                || dismissState.isDismissed(DismissDirection.EndToStart)
+            ) {
                 onOrderClick(orders[idx].id)
             }
             SwipeToDismiss(
@@ -202,9 +185,10 @@ fun SectionContent(
                         },
                         label = ""
                     )
-                    Box(Modifier
-                        .fillMaxSize()
-                        .background(color)
+                    Box(
+                        Modifier
+                            .fillMaxSize()
+                            .background(color)
                     )
                 },
             ) {

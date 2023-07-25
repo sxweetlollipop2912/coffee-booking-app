@@ -25,10 +25,10 @@ import com.example.coffeebookingapp.ui.rewards.RewardsViewModel
 
 @Composable
 fun CoffeeNavGraph(
+    modifier: Modifier = Modifier,
     appContainer: AppContainer,
     coffeeNavController: CoffeeNavController = rememberCoffeeNavController(),
     startDestination: String = NavRoutes.Main.HOME.route,
-    modifier: Modifier = Modifier,
 ) {
     NavHost(
         navController = coffeeNavController.navController,

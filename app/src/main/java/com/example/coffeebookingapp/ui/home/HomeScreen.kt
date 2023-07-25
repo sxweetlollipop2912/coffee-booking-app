@@ -89,7 +89,7 @@ fun HomeScreen(
                             onClick = onCartClick,
                         ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_cart),
+                                painter = painterResource(R.drawable.cart),
                                 contentDescription = "go to cart",
                                 tint = light_darkPrimary
                             )
@@ -98,7 +98,7 @@ fun HomeScreen(
                             onClick = onProfileClick,
                         ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_profile_person),
+                                painter = painterResource(R.drawable.person),
                                 contentDescription = "go to profile",
                                 tint = light_darkPrimary
                             )
@@ -173,10 +173,10 @@ fun HomeScreenContent(
                 )
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxSize(),
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                     contentPadding = PaddingValues(bottom = 100.dp),
+                    modifier = Modifier.fillMaxSize(),
                 ) {
                     items(coffees.size) { idx ->
                         Card(
@@ -191,7 +191,7 @@ fun HomeScreenContent(
                                 verticalArrangement = Arrangement.spacedBy(10.dp),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(0.dp, 20.dp)
+                                    .padding(vertical = 20.dp)
                             ) {
                                 CoffeeAvatar(coffee = coffees[idx], width = 120.dp)
                                 Text(

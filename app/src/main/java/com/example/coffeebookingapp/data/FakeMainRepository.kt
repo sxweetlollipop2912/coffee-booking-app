@@ -23,7 +23,7 @@ import java.util.UUID
 class FakeMainRepository : MainRepository {
     private val basePrice = 1.0
 
-    private val products = listOf("Americano", "Cappuccino", "Mocha", "Flat White", "Latte")
+    private val products = listOf("Americano", "Cappuccino", "Mocha", "Flat White")
 
     private val fullName = MutableStateFlow("Anderson")
     private val phone = MutableStateFlow("+60134589525")
@@ -139,7 +139,7 @@ class FakeMainRepository : MainRepository {
             ),
             PointReward(
                 id = newUUID(),
-                product = products[4],
+                product = products[0],
                 points = 12,
                 datetime = "24 June | 12:30 PM"
             ),
@@ -167,13 +167,55 @@ class FakeMainRepository : MainRepository {
     private val checkedOutOrders = MutableStateFlow(
         listOf(
             Order(newUUID(), products[0], now(true), 3.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[1], "25 June | 12:30 PM", 4.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[2], "26 June | 12:30 PM", 5.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[3], "27 June | 12:30 PM", 6.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[4], "28 June | 12:30 PM", 7.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[0], "29 June | 12:30 PM", 8.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[1], "30 June | 12:30 PM", 9.0, "Jl. Raya Kebayoran Lama No. 12"),
-            Order(newUUID(), products[2], "01 July | 12:30 PM", 10.0, "Jl. Raya Kebayoran Lama No. 12"),
+            Order(
+                newUUID(),
+                products[1],
+                "25 June | 12:30 PM",
+                4.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
+            Order(
+                newUUID(),
+                products[2],
+                "26 June | 12:30 PM",
+                5.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
+            Order(
+                newUUID(),
+                products[3],
+                "27 June | 12:30 PM",
+                6.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
+            Order(
+                newUUID(),
+                products[0],
+                "28 June | 12:30 PM",
+                7.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
+            Order(
+                newUUID(),
+                products[0],
+                "29 June | 12:30 PM",
+                8.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
+            Order(
+                newUUID(),
+                products[1],
+                "30 June | 12:30 PM",
+                9.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
+            Order(
+                newUUID(),
+                products[2],
+                "01 July | 12:30 PM",
+                10.0,
+                "Jl. Raya Kebayoran Lama No. 12"
+            ),
         )
     )
     private val ongoingOrders = MutableStateFlow(checkedOutOrders.value)
@@ -220,12 +262,13 @@ class FakeMainRepository : MainRepository {
     }
 
     override fun getPrice(product: String, option: ProductOption, isRedeem: Boolean): Double {
-        var price = option.quantity * basePrice
-        if (option.size == SizeType.LARGE) price += 0.55
-        if (option.size == SizeType.SMALL) price -= 0.55
+        var price = basePrice
+        if (option.size == SizeType.LARGE) price += 0.50
+        if (option.size == SizeType.SMALL) price -= 0.50
         if (option.shot == ShotType.DOUBLE) price += 0.25
+        price *= option.quantity
         if (isRedeem) price -= basePrice
-        return kotlin.math.min(price, 0.0)
+        return kotlin.math.max(price, 0.0)
     }
 
     override fun observeCart(): Flow<List<CartItem>> {

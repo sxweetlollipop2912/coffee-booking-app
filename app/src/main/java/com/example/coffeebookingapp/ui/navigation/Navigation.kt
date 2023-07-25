@@ -38,7 +38,7 @@ fun rememberCoffeeNavController(
 class CoffeeNavController(
     val navController: NavHostController,
 ) {
-    val currentRoute: String?
+    private val currentRoute: String?
         get() = navController.currentDestination?.route
 
     fun navigateUp() {
@@ -56,7 +56,7 @@ class CoffeeNavController(
                     saveState = true
                 }
                 // Avoid multiple copies of the same destination when
-                // reselecting the same item
+                // re-selecting the same item
                 launchSingleTop = true
                 // Restore state when re-selecting a previously selected item
                 restoreState = true
@@ -64,7 +64,12 @@ class CoffeeNavController(
         }
     }
 
-    fun navigateToDetails(from: NavBackStackEntry, product: String, redeemableId: String? = null, cartId: String? = null) {
+    fun navigateToDetails(
+        from: NavBackStackEntry,
+        product: String,
+        redeemableId: String? = null,
+        cartId: String? = null
+    ) {
         val base = "${NavRoutes.Sub.DETAILS.route}/$product"
         var optional = ""
         if (redeemableId != null) {
@@ -76,8 +81,11 @@ class CoffeeNavController(
             optional = "?${NavRoutes.Sub.DETAILS.arg[2]}=$cartId"
         }
         // In order to discard duplicated navigation events, we check the Lifecycle
-        if (from.lifecycle.currentState == Lifecycle.State.RESUMED) {
+        if (from.lifecycleIsResumed()) {
             navController.navigate("$base$optional")
         }
     }
 }
+
+private fun NavBackStackEntry.lifecycleIsResumed() =
+    this.lifecycle.currentState == Lifecycle.State.RESUMED

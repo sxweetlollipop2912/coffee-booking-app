@@ -60,7 +60,7 @@ fun CartScreen(
                         onClick = onBackClick,
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_back_arrow),
+                            painter = painterResource(R.drawable.back_arrow),
                             contentDescription = "back",
                         )
                     }
@@ -141,7 +141,7 @@ fun CartScreenContent(
                                     modifier = Modifier.fillMaxSize()
                                 ) {
                                     Icon(
-                                        painter = painterResource(R.drawable.ic_delete),
+                                        painter = painterResource(R.drawable.trash_bin),
                                         contentDescription = "delete item",
                                         tint = MaterialTheme.colorScheme.onErrorContainer,
                                         modifier = Modifier.align(Alignment.Center)
@@ -185,7 +185,7 @@ fun CartScreenContent(
                 contentPadding = PaddingValues(30.dp, 12.dp)
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_cart),
+                    painter = painterResource(R.drawable.cart),
                     contentDescription = null,
                 )
                 Spacer(modifier = Modifier.width(10.dp))
