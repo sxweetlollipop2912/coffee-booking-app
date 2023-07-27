@@ -15,6 +15,11 @@ class RedeemViewModel(
         SharingStarted.WhileSubscribed(5000),
         emptyList()
     )
+    val points = repository.observePoints().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        0
+    )
 
     fun checkIfRedeemable(redeemableId: String): Boolean {
         viewModelScope.run {

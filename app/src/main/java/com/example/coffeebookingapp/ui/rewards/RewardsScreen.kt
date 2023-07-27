@@ -24,6 +24,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.PointReward
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.BottomBar
 import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.PointCard
@@ -79,7 +80,11 @@ fun RewardsScreen(
             history,
             onStampCardClick,
             onRedeemDrinksClick,
-            screenModifier.padding(start = 30.dp, end = 30.dp, bottom = 20.dp)
+            screenModifier.padding(
+                start = UIConfig.SCREEN_SIDE_PADDING,
+                end = UIConfig.SCREEN_SIDE_PADDING,
+                bottom = UIConfig.SCREEN_BOTTOM_PADDING
+            )
         )
     }
 }

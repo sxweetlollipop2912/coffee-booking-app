@@ -30,23 +30,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.Order
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.BottomBar
 import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.OrderSlot
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
 import com.example.coffeebookingapp.ui.theme.light_inactive
-
-enum class Tab(val title: String) {
-    ONGOING("Ongoing"),
-    HISTORY("History"),
-}
 
 data class TabContentData(
     val tab: Tab,
@@ -58,6 +52,8 @@ data class TabContentData(
 fun MyOrdersScreen(
     ongoing: List<Order>,
     history: List<Order>,
+    currentTab: Tab,
+    setTab: (Tab) -> Unit,
     onOngoingClick: (orderId: String) -> Unit,
     onHistoryClick: (orderId: String) -> Unit,
     onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
@@ -65,13 +61,12 @@ fun MyOrdersScreen(
 ) {
     val tabContentData = listOf(
         TabContentData(Tab.ONGOING) {
-            TabContent(ongoing, onOngoingClick, Modifier.padding(bottom = 20.dp))
+            TabContent(ongoing.asReversed(), onOngoingClick, Modifier.padding(bottom = UIConfig.SCREEN_BOTTOM_PADDING))
         },
         TabContentData(Tab.HISTORY) {
-            TabContent(history, onHistoryClick, Modifier.padding(bottom = 20.dp))
+            TabContent(history.asReversed(), onHistoryClick, Modifier.padding(bottom = UIConfig.SCREEN_BOTTOM_PADDING))
         }
     )
-    val (currentTab, setTab) = rememberSaveable { mutableStateOf(tabContentData[0].tab) }
 
     Scaffold(
         modifier = modifier,
@@ -132,7 +127,6 @@ fun MyOrdersScreenContent(
                 Tab(
                     selected = selected,
                     onClick = { onSetTab(content.tab) },
-                    modifier = Modifier.padding(vertical = 12.dp)
                 ) {
                     Text(
                         text = content.tab.title,
@@ -142,6 +136,7 @@ fun MyOrdersScreenContent(
                             light_inactive
                         },
                         style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(vertical = 12.dp)
                     )
                 }
             }
@@ -195,7 +190,7 @@ fun TabContent(
                 Box(
                     modifier = Modifier
                         .clickable { onOrderClick(orders[idx].id) }
-                        .padding(horizontal = 30.dp, vertical = 15.dp)
+                        .padding(horizontal = UIConfig.SCREEN_SIDE_PADDING, vertical = 15.dp)
                 ) {
                     OrderSlot(
                         orders[idx]

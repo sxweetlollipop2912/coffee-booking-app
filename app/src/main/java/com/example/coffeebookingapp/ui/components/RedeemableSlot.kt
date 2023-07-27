@@ -22,6 +22,7 @@ import com.example.coffeebookingapp.ui.theme.light_onBackground2
 fun RedeemableSlot(
     redeemable: Redeemable,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     onButtonClick: () -> Unit,
 ) {
     Box(
@@ -56,7 +57,8 @@ fun RedeemableSlot(
             onClick = onButtonClick,
             shape = RoundedCornerShape(50.dp),
             contentPadding = PaddingValues(17.dp, 0.dp),
-            modifier = Modifier.align(Alignment.CenterEnd)
+            modifier = Modifier.align(Alignment.CenterEnd),
+            enabled = enabled,
         ) {
             Text(
                 text = "${redeemable.pointsRequired} pts",

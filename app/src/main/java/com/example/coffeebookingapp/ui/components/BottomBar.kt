@@ -65,7 +65,7 @@ private fun BottomBarLayout(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .height(64.dp + 24.dp)
             .padding(horizontal = 24.dp),
     ) {
         Card(

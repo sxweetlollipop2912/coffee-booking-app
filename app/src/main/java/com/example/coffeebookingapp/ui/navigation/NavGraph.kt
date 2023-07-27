@@ -91,7 +91,13 @@ fun CoffeeNavGraph(
                 detailsViewModel = detailsViewModel,
                 product = product,
                 onBack = { coffeeNavController.popBackStack() },
-                onToCart = { coffeeNavController.navigateToMainOther(NavRoutes.MainOther.CART) },
+                onToCart = {
+                    coffeeNavController.navigateToMainOther(NavRoutes.MainOther.CART)
+                },
+                onToCartRemoveFromStack = {
+                    coffeeNavController.popBackStack()
+                    coffeeNavController.navigateToMainOther(NavRoutes.MainOther.CART)
+              },
             )
         }
         composable(NavRoutes.MainOther.CART.route) { from ->
@@ -110,9 +116,10 @@ fun CoffeeNavGraph(
                     )
                 },
                 onToOngoingOrders = {
+                    coffeeNavController.emptyBackStack()
                     coffeeNavController.navigateToBottomBar(
-                        NavRoutes.MainBottomBar.ORDERS,
-                        "?${NavRoutes.MainBottomBar.ORDERS.args[0]}=${true}"
+                        destination = NavRoutes.MainBottomBar.ORDERS,
+                        args = "?${NavRoutes.MainBottomBar.ORDERS.args[0]}=${true}"
                     )
                 },
                 onBack = { coffeeNavController.popBackStack() }
@@ -159,10 +166,22 @@ fun CoffeeNavGraph(
                 onBack = { coffeeNavController.popBackStack() },
             )
         }
-        composable(NavRoutes.MainBottomBar.ORDERS.route) {
+        composable(
+            route = NavRoutes.MainBottomBar.ORDERS.route +
+                    "?${NavRoutes.MainBottomBar.ORDERS.args[0]}={${NavRoutes.MainBottomBar.ORDERS.args[0]}}",
+            arguments = listOf(
+                navArgument(NavRoutes.MainBottomBar.ORDERS.args[0]) {
+                    type = NavType.BoolType
+                    defaultValue = false
+                },
+            )
+        ) { navBackStackEntry ->
+            val arguments = requireNotNull(navBackStackEntry.arguments)
+            val resetTab = arguments.getBoolean(NavRoutes.MainBottomBar.ORDERS.args[0])
             val myOrdersViewModel: MyOrdersViewModel = viewModel(
                 factory = MyOrdersViewModel.provideFactory(
                     repository = appContainer.repository,
+                    resetTab = resetTab,
                 )
             )
             MyOrdersRoute(

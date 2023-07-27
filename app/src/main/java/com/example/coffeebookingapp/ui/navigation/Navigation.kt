@@ -10,10 +10,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 class NavRoutes {
-    enum class MainBottomBar(val route: String) {
-        HOME("home"),
-        REWARDS_HISTORY("rewards_history"),
-        ORDERS("orders"),
+    enum class MainBottomBar(val route: String, val args: List<String>) {
+        HOME("home", emptyList()),
+        REWARDS_HISTORY("rewards_history", emptyList()),
+        ORDERS("orders", listOf("resetTab")),
     }
 
     enum class MainOther(val route: String) {
@@ -48,8 +48,12 @@ class CoffeeNavController(
         navController.popBackStack()
     }
 
-    fun navigateToBottomBar(destination: NavRoutes.MainBottomBar) {
-        val route = destination.route
+    fun emptyBackStack() {
+        navController.popBackStack(navController.graph.findStartDestination().id, false)
+    }
+
+    fun navigateToBottomBar(destination: NavRoutes.MainBottomBar, args: String = "") {
+        val route = destination.route + args
         if (route != currentRoute) {
             navController.navigate(route) {
                 // Pop up to the start destination of the graph to
@@ -62,7 +66,7 @@ class CoffeeNavController(
                 // re-selecting the same item
                 launchSingleTop = true
                 // Restore state when re-selecting a previously selected item
-                restoreState = true
+                restoreState = args.isEmpty()
             }
         }
     }
@@ -70,7 +74,13 @@ class CoffeeNavController(
     fun navigateToMainOther(destination: NavRoutes.MainOther) {
         val route = destination.route
         if (route != currentRoute) {
-            navController.navigate(route)
+            navController.navigate(route) {
+                // Avoid multiple copies of the same destination when
+                // re-selecting the same item
+                launchSingleTop = true
+                // Restore state when re-selecting a previously selected item
+                restoreState = true
+            }
         }
     }
 

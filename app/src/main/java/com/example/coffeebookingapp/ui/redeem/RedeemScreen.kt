@@ -21,12 +21,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.model.Redeemable
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.RedeemableSlot
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RedeemScreen(
     redeemable: List<Redeemable>,
+    enabled: List<Boolean>,
     onRedeemableClick: (Redeemable) -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -55,7 +57,7 @@ fun RedeemScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
-                modifier = Modifier.padding(horizontal = 10.dp),
+                modifier = Modifier.padding(horizontal = UIConfig.TOP_BAR_SIDE_PADDING),
                 scrollBehavior = scrollBehavior
             )
         }
@@ -63,8 +65,9 @@ fun RedeemScreen(
         val screenModifier = Modifier.padding(innerPadding)
         RedeemScreenContent(
             redeemable,
+            enabled,
             onRedeemableClick,
-            screenModifier.padding(30.dp, 10.dp, 30.dp, 0.dp)
+            screenModifier.padding(UIConfig.SCREEN_SIDE_PADDING, 10.dp, UIConfig.SCREEN_SIDE_PADDING, 0.dp)
         )
     }
 }
@@ -72,6 +75,7 @@ fun RedeemScreen(
 @Composable
 fun RedeemScreenContent(
     redeemable: List<Redeemable>,
+    enabled: List<Boolean>,
     onRedeemableClick: (Redeemable) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -87,6 +91,7 @@ fun RedeemScreenContent(
         ) { index ->
             RedeemableSlot(
                 redeemable = redeemable[index],
+                enabled = enabled[index],
                 onButtonClick = { onRedeemableClick(redeemable[index]) },
             )
         }

@@ -18,6 +18,8 @@ fun MyOrdersRoute(
     MyOrdersScreen(
         ongoing = ongoing,
         history = history,
+        currentTab = myOrdersViewModel.currentTab,
+        setTab = myOrdersViewModel::setTab,
         onOngoingClick = { orderId ->
             myOrdersViewModel.moveToHistory(orderId)
         },

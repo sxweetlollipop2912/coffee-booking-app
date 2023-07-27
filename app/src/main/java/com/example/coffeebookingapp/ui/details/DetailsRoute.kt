@@ -11,6 +11,7 @@ fun DetailsRoute(
     product: String,
     onBack: () -> Unit,
     onToCart: () -> Unit,
+    onToCartRemoveFromStack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val option by detailsViewModel.option.collectAsStateWithLifecycle()
@@ -27,7 +28,7 @@ fun DetailsRoute(
         onSetIce = { detailsViewModel.setIce(it) },
         onAddToCart = {
             if (detailsViewModel.addToCart()) {
-                onToCart()
+                onToCartRemoveFromStack()
             }
         },
         onBackClick = onBack,

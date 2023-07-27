@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.ui.CoffeeAvatar
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.BottomBar
 import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.StampCountCard
@@ -63,7 +64,7 @@ fun HomeScreen(
                 title = {
                     Column(
                         horizontalAlignment = Alignment.Start,
-                        verticalArrangement = Arrangement.spacedBy(0.dp),
+                        verticalArrangement = Arrangement.Bottom,
                     ) {
                         Text(
                             text = "Good morning",
@@ -109,7 +110,7 @@ fun HomeScreen(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
                 modifier = Modifier
-                    .padding(10.dp, 15.dp)
+                    .padding(horizontal = UIConfig.TOP_BAR_SIDE_PADDING)
             )
         },
         bottomBar = {
@@ -122,7 +123,7 @@ fun HomeScreen(
     ) { innerPadding ->
         val screenModifier = Modifier.padding(
             innerPadding.calculateStartPadding(LayoutDirection.Ltr),
-            innerPadding.calculateTopPadding(),
+            innerPadding.calculateTopPadding() + 15.dp,
             innerPadding.calculateEndPadding(LayoutDirection.Ltr),
             0.dp,
         )
@@ -152,14 +153,19 @@ fun HomeScreenContent(
         StampCountCard(
             stampCount = stampCount,
             onClick = onStampCountClick,
-            modifier = Modifier.padding(25.dp, 0.dp)
+            modifier = Modifier.padding(horizontal = UIConfig.SCREEN_SIDE_PADDING)
         )
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(start = 26.dp, end = 26.dp, top = 26.dp, bottom = 20.dp),
+                .padding(
+                    start = UIConfig.SCREEN_SIDE_PADDING,
+                    end = UIConfig.SCREEN_SIDE_PADDING,
+                    top = UIConfig.SCREEN_SIDE_PADDING,
+                    bottom = UIConfig.SCREEN_BOTTOM_PADDING
+                ),
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(20.dp),

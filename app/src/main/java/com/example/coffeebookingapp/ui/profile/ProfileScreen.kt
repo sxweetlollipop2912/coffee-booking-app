@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.theme.light_onBackground2
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,7 +74,7 @@ fun ProfileScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
-                modifier = Modifier.padding(horizontal = 10.dp),
+                modifier = Modifier.padding(horizontal = UIConfig.TOP_BAR_SIDE_PADDING),
             )
         }
     ) { innerPadding ->
@@ -87,7 +88,7 @@ fun ProfileScreen(
             onPhoneSubmit,
             onEmailSubmit,
             onAddressSubmit,
-            screenModifier.padding(horizontal = 15.dp)
+            screenModifier.padding(horizontal = UIConfig.SCREEN_SIDE_PADDING)
         )
     }
 }

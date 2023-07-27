@@ -13,9 +13,11 @@ fun RedeemRoute(
     modifier: Modifier = Modifier,
 ) {
     val redeemable by redeemViewModel.redeemable.collectAsStateWithLifecycle()
+    val currentPoints by redeemViewModel.points.collectAsStateWithLifecycle()
 
     RedeemScreen(
         redeemable = redeemable,
+        enabled = redeemable.map { currentPoints >= it.pointsRequired },
         onRedeemableClick = {
             if (redeemViewModel.checkIfRedeemable(it.id))
                 onToDetails(it.product, it.id)

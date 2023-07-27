@@ -221,17 +221,11 @@ class FakeMainRepository : MainRepository {
     private val ongoingOrders = MutableStateFlow(emptyList<Order>())
     private val historyOrders = MutableStateFlow(checkedOutOrders.value)
 
-    override fun observeFullName(): Flow<String> {
-        return fullName
-    }
+    override fun observeFullName(): Flow<String> = fullName
 
-    override fun changeFullName(upd: String) {
-        fullName.update { upd }
-    }
+    override fun changeFullName(upd: String) = fullName.update { upd }
 
-    override fun observePhone(): Flow<String> {
-        return phone
-    }
+    override fun observePhone(): Flow<String> = phone
 
     override fun changePhone(upd: String): Boolean {
         if (upd.length != 12 || upd[0] != '+') return false
@@ -239,9 +233,7 @@ class FakeMainRepository : MainRepository {
         return true
     }
 
-    override fun observeEmail(): Flow<String> {
-        return email
-    }
+    override fun observeEmail(): Flow<String> = email
 
     override fun changeEmail(upd: String): Boolean {
         if (!upd.contains('@')) return false
@@ -249,17 +241,11 @@ class FakeMainRepository : MainRepository {
         return true
     }
 
-    override fun observeAddress(): Flow<String> {
-        return address
-    }
+    override fun observeAddress(): Flow<String> = address
 
-    override fun changeAddress(upd: String) {
-        address.update { upd }
-    }
+    override fun changeAddress(upd: String) = address.update { upd }
 
-    override fun getProducts(): List<String> {
-        return products
-    }
+    override fun getProducts(): List<String> = products
 
     override fun getPrice(product: String, option: ProductOption, isRedeem: Boolean): Double {
         var price = basePrice
@@ -271,13 +257,9 @@ class FakeMainRepository : MainRepository {
         return kotlin.math.max(price, 0.0)
     }
 
-    override fun observeCart(): Flow<List<CartItem>> {
-        return cart
-    }
+    override fun observeCart(): Flow<List<CartItem>> = cart
 
-    override fun getCartItem(itemId: String): CartItem? {
-        return cart.value.find { it.id == itemId }
-    }
+    override fun getCartItem(itemId: String): CartItem? = cart.value.find { it.id == itemId }
 
     override fun addToCart(product: String, option: ProductOption, redeemableId: String?) {
         cart.update {
@@ -288,6 +270,9 @@ class FakeMainRepository : MainRepository {
                 option = option,
                 redeemableId = redeemableId
             )
+        }
+        cart.update {
+            it.filter { cartItem -> cartItem.option.quantity > 0 }
         }
     }
 
@@ -306,6 +291,9 @@ class FakeMainRepository : MainRepository {
                 }
             }
         }
+        cart.update {
+            it.filter { cartItem -> cartItem.option.quantity > 0 }
+        }
         return exists
     }
 
@@ -315,21 +303,13 @@ class FakeMainRepository : MainRepository {
         return true
     }
 
-    override fun observeStampCount(): Flow<Int> {
-        return stampCount
-    }
+    override fun observeStampCount(): Flow<Int> = stampCount
 
-    override fun resetStampCount() {
-        stampCount.update { 0 }
-    }
+    override fun resetStampCount() = stampCount.update { 0 }
 
-    override fun observePoints(): Flow<Int> {
-        return points
-    }
+    override fun observePoints(): Flow<Int> = points
 
-    override fun observeRedeemableProducts(): Flow<List<Redeemable>> {
-        return redeemables
-    }
+    override fun observeRedeemableProducts(): Flow<List<Redeemable>> = redeemables
 
     override fun checkIfRedeemable(redeemableId: String): Boolean {
         val redeemable = redeemables.value.find { it.id == redeemableId } ?: return false
@@ -345,13 +325,9 @@ class FakeMainRepository : MainRepository {
         return true
     }
 
-    override fun observePointsHistory(): Flow<List<PointReward>> {
-        return pointsHistory
-    }
+    override fun observePointsHistory(): Flow<List<PointReward>> = pointsHistory
 
-    override fun observeCheckedOutOrders(): Flow<List<Order>> {
-        return checkedOutOrders
-    }
+    override fun observeCheckedOutOrders(): Flow<List<Order>> = checkedOutOrders
 
     override fun checkOut(): Boolean {
         if (cart.value.isEmpty()) return false
@@ -378,14 +354,20 @@ class FakeMainRepository : MainRepository {
                 )
             )
             points.update { it + pts }
+            if (item.redeemableId != null) {
+                val minusPts = redeemables.value.find { it.id == item.redeemableId }?.pointsRequired ?: 0
+                points.update { it - minusPts }
+            }
         }
         val redeemableIds = cart.value.mapNotNull { it.redeemableId }
 
         cart.update { emptyList() }
-        redeemables.update { it.filter { redeemable -> redeemable.id !in redeemableIds } }
         checkedOutOrders.update { it + orders }
         ongoingOrders.update { it + orders }
+
         pointsHistory.update { it + ptsHistory }
+        pointsHistory.update { it.filter { reward -> reward.points != 0 } }
+        redeemables.update { it.filter { redeemable -> redeemable.id !in redeemableIds } }
         stampCount.update { min(it + orders.size, 8) }
 
         return true
@@ -405,18 +387,12 @@ class FakeMainRepository : MainRepository {
         return true
     }
 
-    override fun observeOngoingOrders(): Flow<List<Order>> {
-        return ongoingOrders
-    }
+    override fun observeOngoingOrders(): Flow<List<Order>> = ongoingOrders
 
-    override fun observeHistoryOrders(): Flow<List<Order>> {
-        return historyOrders
-    }
+    override fun observeHistoryOrders(): Flow<List<Order>> = historyOrders
 }
 
-private fun newUUID(): String {
-    return UUID.randomUUID().toString()
-}
+private fun newUUID(): String = UUID.randomUUID().toString()
 
 private fun now(extended: Boolean): String {
     val now: Date = Calendar.getInstance().time

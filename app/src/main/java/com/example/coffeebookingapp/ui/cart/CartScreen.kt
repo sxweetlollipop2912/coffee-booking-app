@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.model.CartItem
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.CartItemCard
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
 import com.example.coffeebookingapp.ui.theme.light_darkPrimary
@@ -68,13 +69,14 @@ fun CartScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
+                modifier = Modifier.padding(horizontal = UIConfig.TOP_BAR_SIDE_PADDING)
             )
         }
     ) { innerPadding ->
         val screenModifier = Modifier.padding(innerPadding)
         CartScreenContent(
             items, onNavigateToDetails, onRemoveItem, onCheckOut,
-            screenModifier.padding(horizontal = 20.dp)
+            screenModifier.padding(horizontal = UIConfig.SCREEN_SIDE_PADDING)
         )
     }
 }
@@ -182,6 +184,7 @@ fun CartScreenContent(
             }
             Button(
                 onClick = onCheckOut,
+                enabled = items.isNotEmpty(),
                 contentPadding = PaddingValues(30.dp, 12.dp)
             ) {
                 Icon(

@@ -38,6 +38,7 @@ import com.example.coffeebookingapp.model.ShotType
 import com.example.coffeebookingapp.model.SizeType
 import com.example.coffeebookingapp.model.TemperatureType
 import com.example.coffeebookingapp.ui.CoffeeAvatar
+import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.QuantityButton
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
 import com.example.coffeebookingapp.ui.theme.light_inactive
@@ -92,7 +93,7 @@ fun DetailsScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background,
                 ),
-                modifier = Modifier.padding(10.dp, 0.dp, 15.dp, 0.dp),
+                modifier = Modifier.padding(horizontal = UIConfig.TOP_BAR_SIDE_PADDING),
             )
         }
     ) { innerPadding ->
@@ -108,7 +109,12 @@ fun DetailsScreen(
             onSetSize,
             onSetIce,
             onAddToCart,
-            screenModifier.padding(30.dp, 0.dp, 30.dp, 15.dp)
+            screenModifier.padding(
+                UIConfig.SCREEN_SIDE_PADDING,
+                0.dp,
+                UIConfig.SCREEN_SIDE_PADDING,
+                15.dp
+            )
         )
     }
 }
