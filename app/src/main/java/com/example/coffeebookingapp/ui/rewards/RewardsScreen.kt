@@ -39,7 +39,7 @@ fun RewardsScreen(
     history: List<PointReward>,
     onStampCardClick: () -> Unit,
     onRedeemDrinksClick: () -> Unit,
-    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -62,7 +62,7 @@ fun RewardsScreen(
         bottomBar = {
             BottomBar(
                 tabs = BottomBarTab.values(),
-                currentRoute = NavRoutes.Main.REWARDS_HISTORY,
+                currentRoute = NavRoutes.MainBottomBar.REWARDS_HISTORY,
                 navigateToBottomBarRoute = onNavigateToBottomBarRoute
             )
         },

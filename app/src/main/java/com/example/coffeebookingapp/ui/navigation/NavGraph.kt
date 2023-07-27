@@ -27,15 +27,15 @@ import com.example.coffeebookingapp.ui.rewards.RewardsViewModel
 fun CoffeeNavGraph(
     modifier: Modifier = Modifier,
     appContainer: AppContainer,
-    coffeeNavController: CoffeeNavController = rememberCoffeeNavController(),
-    startDestination: String = NavRoutes.Main.HOME.route,
+    coffeeNavController: CoffeeNavController,
+    startDestination: String,
 ) {
     NavHost(
         navController = coffeeNavController.navController,
         startDestination = startDestination,
         modifier = modifier
     ) {
-        composable(NavRoutes.Main.HOME.route) { from ->
+        composable(NavRoutes.MainBottomBar.HOME.route) { from ->
             val homeViewModel: HomeViewModel = viewModel(
                 factory = HomeViewModel.provideFactory(
                     repository = appContainer.repository,
@@ -43,42 +43,42 @@ fun CoffeeNavGraph(
             )
             HomeRoute(
                 homeViewModel = homeViewModel,
-                onToCart = { coffeeNavController.navigateToMain(NavRoutes.Main.CART) },
-                onToProfile = { coffeeNavController.navigateToMain(NavRoutes.Main.PROFILE) },
+                onToCart = { coffeeNavController.navigateToMainOther(NavRoutes.MainOther.CART) },
+                onToProfile = { coffeeNavController.navigateToMainOther(NavRoutes.MainOther.PROFILE) },
                 onToDetails = { product ->
                     coffeeNavController.navigateToDetails(
                         from = from,
                         product = product
                     )
                 },
-                onNavigateToBottomBarRoute = { coffeeNavController.navigateToMain(it) },
+                onNavigateToBottomBarRoute = { coffeeNavController.navigateToBottomBar(it) },
             )
         }
-        // "details/{productId}?redeemableId={redeemableId}",
+//         "details/{productId}?redeemableId={redeemableId}",
         composable(
             route =
             NavRoutes.Sub.DETAILS.route +
-                    "/{${NavRoutes.Sub.DETAILS.arg[0]}}" +
-                    "?${NavRoutes.Sub.DETAILS.arg[1]}={${NavRoutes.Sub.DETAILS.arg[1]}}" +
-                    "&${NavRoutes.Sub.DETAILS.arg[2]}={${NavRoutes.Sub.DETAILS.arg[2]}}",
+                    "/{${NavRoutes.Sub.DETAILS.args[0]}}" +
+                    "?${NavRoutes.Sub.DETAILS.args[1]}={${NavRoutes.Sub.DETAILS.args[1]}}" +
+                    "&${NavRoutes.Sub.DETAILS.args[2]}={${NavRoutes.Sub.DETAILS.args[2]}}",
             arguments = listOf(
-                navArgument(NavRoutes.Sub.DETAILS.arg[0]) {
+                navArgument(NavRoutes.Sub.DETAILS.args[0]) {
                     type = NavType.StringType
                 },
-                navArgument(NavRoutes.Sub.DETAILS.arg[1]) {
+                navArgument(NavRoutes.Sub.DETAILS.args[1]) {
                     type = NavType.StringType
                     nullable = true
                 },
-                navArgument(NavRoutes.Sub.DETAILS.arg[2]) {
+                navArgument(NavRoutes.Sub.DETAILS.args[2]) {
                     type = NavType.StringType
                     nullable = true
                 },
             )
         ) { navBackStackEntry ->
             val arguments = requireNotNull(navBackStackEntry.arguments)
-            val product = requireNotNull(arguments.getString(NavRoutes.Sub.DETAILS.arg[0]))
-            val redeemableId = arguments.getString(NavRoutes.Sub.DETAILS.arg[1])
-            val cartId = arguments.getString(NavRoutes.Sub.DETAILS.arg[2])
+            val product = requireNotNull(arguments.getString(NavRoutes.Sub.DETAILS.args[0]))
+            val redeemableId = arguments.getString(NavRoutes.Sub.DETAILS.args[1])
+            val cartId = arguments.getString(NavRoutes.Sub.DETAILS.args[2])
 
             val detailsViewModel: DetailsViewModel = viewModel(
                 factory = DetailsViewModel.provideFactory(
@@ -92,10 +92,10 @@ fun CoffeeNavGraph(
                 detailsViewModel = detailsViewModel,
                 product = product,
                 onBack = { coffeeNavController.navigateUp() },
-                onToCart = { coffeeNavController.navigateToMain(NavRoutes.Main.CART) },
+                onToCart = { coffeeNavController.navigateToMainOther(NavRoutes.MainOther.CART) },
             )
         }
-        composable(NavRoutes.Main.CART.route) { from ->
+        composable(NavRoutes.MainOther.CART.route) { from ->
             val cartViewModel: CartViewModel = viewModel(
                 factory = CartViewModel.provideFactory(
                     repository = appContainer.repository,
@@ -114,7 +114,7 @@ fun CoffeeNavGraph(
                 onBack = { coffeeNavController.navigateUp() }
             )
         }
-        composable(NavRoutes.Main.PROFILE.route) {
+        composable(NavRoutes.MainOther.PROFILE.route) {
             val profileViewModel: ProfileViewModel = viewModel(
                 factory = ProfileViewModel.provideFactory(
                     repository = appContainer.repository,
@@ -125,7 +125,7 @@ fun CoffeeNavGraph(
                 onBack = { coffeeNavController.navigateUp() },
             )
         }
-        composable(NavRoutes.Main.REWARDS_HISTORY.route) {
+        composable(NavRoutes.MainBottomBar.REWARDS_HISTORY.route) {
             val rewardsViewModel: RewardsViewModel = viewModel(
                 factory = RewardsViewModel.provideFactory(
                     repository = appContainer.repository,
@@ -133,11 +133,11 @@ fun CoffeeNavGraph(
             )
             RewardsRoute(
                 rewardsViewModel = rewardsViewModel,
-                onToRedeem = { coffeeNavController.navigateToMain(NavRoutes.Main.REDEEM) },
-                onNavigateToBottomBarRoute = { coffeeNavController.navigateToMain(it) },
+                onToRedeem = { coffeeNavController.navigateToMainOther(NavRoutes.MainOther.REDEEM) },
+                onNavigateToBottomBarRoute = { coffeeNavController.navigateToBottomBar(it) },
             )
         }
-        composable(NavRoutes.Main.REDEEM.route) { from ->
+        composable(NavRoutes.MainOther.REDEEM.route) { from ->
             val redeemViewModel: RedeemViewModel = viewModel(
                 factory = RedeemViewModel.provideFactory(
                     repository = appContainer.repository,
@@ -155,7 +155,7 @@ fun CoffeeNavGraph(
                 onBack = { coffeeNavController.navigateUp() },
             )
         }
-        composable(NavRoutes.Main.ORDERS.route) {
+        composable(NavRoutes.MainBottomBar.ORDERS.route) {
             val myOrdersViewModel: MyOrdersViewModel = viewModel(
                 factory = MyOrdersViewModel.provideFactory(
                     repository = appContainer.repository,
@@ -163,7 +163,7 @@ fun CoffeeNavGraph(
             )
             MyOrdersRoute(
                 myOrdersViewModel = myOrdersViewModel,
-                onNavigateToBottomBarRoute = { coffeeNavController.navigateToMain(it) },
+                onNavigateToBottomBarRoute = { coffeeNavController.navigateToBottomBar(it) },
             )
         }
     }

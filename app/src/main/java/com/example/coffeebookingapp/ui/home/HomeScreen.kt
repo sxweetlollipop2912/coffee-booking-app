@@ -53,7 +53,7 @@ fun HomeScreen(
     onProfileClick: () -> Unit,
     onStampCountClick: () -> Unit,
     onCoffeeClick: (String) -> Unit,
-    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -115,7 +115,7 @@ fun HomeScreen(
         bottomBar = {
             BottomBar(
                 tabs = BottomBarTab.values(),
-                currentRoute = NavRoutes.Main.HOME,
+                currentRoute = NavRoutes.MainBottomBar.HOME,
                 navigateToBottomBarRoute = onNavigateToBottomBarRoute
             )
         },

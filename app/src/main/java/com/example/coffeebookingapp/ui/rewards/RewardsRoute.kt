@@ -11,7 +11,7 @@ import com.example.coffeebookingapp.ui.navigation.NavRoutes
 fun RewardsRoute(
     rewardsViewModel: RewardsViewModel,
     onToRedeem: () -> Unit,
-    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val stampCount: State<Int> = rewardsViewModel.stampCount.collectAsStateWithLifecycle()

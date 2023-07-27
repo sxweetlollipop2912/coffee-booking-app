@@ -26,6 +26,6 @@ fun ProfileRoute(
         onEmailSubmit = { profileViewModel.changeEmail(it) },
         onAddressSubmit = { profileViewModel.changeAddress(it) },
         onBackClick = onBack,
-        modifier = modifier
+        modifier = modifier,
     )
 }

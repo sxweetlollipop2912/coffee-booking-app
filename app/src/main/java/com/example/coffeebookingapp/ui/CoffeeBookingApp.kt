@@ -17,7 +17,7 @@ fun CoffeeBookingApp(
         val coffeeNavController = rememberCoffeeNavController()
         val navBackStackEntry by coffeeNavController.navController.currentBackStackEntryAsState()
         val currentRoute =
-            navBackStackEntry?.destination?.route ?: NavRoutes.Main.HOME.route
+            navBackStackEntry?.destination?.route ?: NavRoutes.MainBottomBar.HOME.route
 
         CoffeeNavGraph(
             appContainer = appContainer,

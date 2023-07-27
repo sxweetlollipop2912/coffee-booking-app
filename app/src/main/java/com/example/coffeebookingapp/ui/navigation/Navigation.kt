@@ -10,16 +10,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 class NavRoutes {
-    enum class Main(val route: String) {
+    enum class MainBottomBar(val route: String) {
         HOME("home"),
-        CART("cart"),
-        PROFILE("profile"),
         REWARDS_HISTORY("rewards_history"),
-        REDEEM("redeem"),
         ORDERS("orders"),
     }
 
-    enum class Sub(val route: String, val arg: List<String>) {
+    enum class MainOther(val route: String) {
+        CART("cart"),
+        PROFILE("profile"),
+        REDEEM("redeem"),
+    }
+
+    enum class Sub(val route: String, val args: List<String>) {
         DETAILS(
             "details",
             listOf("productId", "redeemableId", "cartId")
@@ -42,10 +45,10 @@ class CoffeeNavController(
         get() = navController.currentDestination?.route
 
     fun navigateUp() {
-        navController.navigateUp()
+        navController.popBackStack()
     }
 
-    fun navigateToMain(destination: NavRoutes.Main) {
+    fun navigateToBottomBar(destination: NavRoutes.MainBottomBar) {
         val route = destination.route
         if (route != currentRoute) {
             navController.navigate(route) {
@@ -64,6 +67,13 @@ class CoffeeNavController(
         }
     }
 
+    fun navigateToMainOther(destination: NavRoutes.MainOther) {
+        val route = destination.route
+        if (route != currentRoute) {
+            navController.navigate(route)
+        }
+    }
+
     fun navigateToDetails(
         from: NavBackStackEntry,
         product: String,
@@ -73,12 +83,12 @@ class CoffeeNavController(
         val base = "${NavRoutes.Sub.DETAILS.route}/$product"
         var optional = ""
         if (redeemableId != null) {
-            optional = "?${NavRoutes.Sub.DETAILS.arg[1]}=$redeemableId"
+            optional = "?${NavRoutes.Sub.DETAILS.args[1]}=$redeemableId"
             if (cartId != null) {
-                optional += "&${NavRoutes.Sub.DETAILS.arg[2]}=$cartId"
+                optional += "&${NavRoutes.Sub.DETAILS.args[2]}=$cartId"
             }
         } else if (cartId != null) {
-            optional = "?${NavRoutes.Sub.DETAILS.arg[2]}=$cartId"
+            optional = "?${NavRoutes.Sub.DETAILS.args[2]}=$cartId"
         }
         // In order to discard duplicated navigation events, we check the Lifecycle
         if (from.lifecycleIsResumed()) {

@@ -25,18 +25,18 @@ import com.example.coffeebookingapp.ui.theme.light_inactive
 enum class BottomBarTab(
     val title: String,
     @DrawableRes val iconId: Int,
-    val route: NavRoutes.Main
+    val route: NavRoutes.MainBottomBar
 ) {
-    HOME("Home", R.drawable.home_glow, NavRoutes.Main.HOME),
-    REWARDS("Rewards", R.drawable.rewards_glow, NavRoutes.Main.REWARDS_HISTORY),
-    ORDERS("My Orders", R.drawable.orders_glow, NavRoutes.Main.ORDERS),
+    HOME("Home", R.drawable.home_glow, NavRoutes.MainBottomBar.HOME),
+    REWARDS("Rewards", R.drawable.rewards_glow, NavRoutes.MainBottomBar.REWARDS_HISTORY),
+    ORDERS("My Orders", R.drawable.orders_glow, NavRoutes.MainBottomBar.ORDERS),
 }
 
 @Composable
 fun BottomBar(
     tabs: Array<BottomBarTab>,
-    currentRoute: NavRoutes.Main,
-    navigateToBottomBarRoute: (route: NavRoutes.Main) -> Unit,
+    currentRoute: NavRoutes.MainBottomBar,
+    navigateToBottomBarRoute: (route: NavRoutes.MainBottomBar) -> Unit,
 ) {
     val currentTab = tabs.first { it.route == currentRoute }
     BottomBarLayout {

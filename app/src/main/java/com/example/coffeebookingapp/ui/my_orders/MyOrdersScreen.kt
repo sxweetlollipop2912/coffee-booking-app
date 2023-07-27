@@ -60,7 +60,7 @@ fun MyOrdersScreen(
     history: List<Order>,
     onOngoingClick: (orderId: String) -> Unit,
     onHistoryClick: (orderId: String) -> Unit,
-    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val tabContentData = listOf(
@@ -91,7 +91,7 @@ fun MyOrdersScreen(
         bottomBar = {
             BottomBar(
                 tabs = BottomBarTab.values(),
-                currentRoute = NavRoutes.Main.ORDERS,
+                currentRoute = NavRoutes.MainBottomBar.ORDERS,
                 navigateToBottomBarRoute = onNavigateToBottomBarRoute
             )
         },

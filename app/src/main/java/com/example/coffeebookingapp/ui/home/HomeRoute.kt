@@ -12,7 +12,7 @@ fun HomeRoute(
     onToCart: () -> Unit,
     onToProfile: () -> Unit,
     onToDetails: (product: String) -> Unit,
-    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val fullName: State<String> = homeViewModel.fullName.collectAsStateWithLifecycle()

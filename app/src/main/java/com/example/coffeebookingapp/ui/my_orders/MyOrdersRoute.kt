@@ -8,7 +8,7 @@ import com.example.coffeebookingapp.ui.navigation.NavRoutes
 @Composable
 fun MyOrdersRoute(
     myOrdersViewModel: MyOrdersViewModel,
-    onNavigateToBottomBarRoute: (NavRoutes.Main) -> Unit,
+    onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val ongoing = myOrdersViewModel.ongoing.collectAsStateWithLifecycle()
