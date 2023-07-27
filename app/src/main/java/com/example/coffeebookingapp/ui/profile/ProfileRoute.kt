@@ -1,7 +1,7 @@
 package com.example.coffeebookingapp.ui.profile
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -11,16 +11,16 @@ fun ProfileRoute(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val fullName: State<String> = profileViewModel.fullName.collectAsStateWithLifecycle()
-    val phone: State<String> = profileViewModel.phone.collectAsStateWithLifecycle()
-    val email: State<String> = profileViewModel.email.collectAsStateWithLifecycle()
-    val address: State<String> = profileViewModel.address.collectAsStateWithLifecycle()
+    val fullName by profileViewModel.fullName.collectAsStateWithLifecycle()
+    val phone by profileViewModel.phone.collectAsStateWithLifecycle()
+    val email by profileViewModel.email.collectAsStateWithLifecycle()
+    val address by profileViewModel.address.collectAsStateWithLifecycle()
 
     ProfileScreen(
-        fullName = fullName.value,
-        phone = phone.value,
-        email = email.value,
-        address = address.value,
+        fullName = fullName,
+        phone = phone,
+        email = email,
+        address = address,
         onFullNameSubmit = { profileViewModel.changeFullName(it) },
         onPhoneSubmit = { profileViewModel.changePhone(it) },
         onEmailSubmit = { profileViewModel.changeEmail(it) },

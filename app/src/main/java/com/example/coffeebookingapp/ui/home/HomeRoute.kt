@@ -1,7 +1,7 @@
 package com.example.coffeebookingapp.ui.home
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
@@ -15,13 +15,13 @@ fun HomeRoute(
     onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val fullName: State<String> = homeViewModel.fullName.collectAsStateWithLifecycle()
-    val stampCount: State<Int> = homeViewModel.stampCount.collectAsStateWithLifecycle()
+    val fullName by homeViewModel.fullName.collectAsStateWithLifecycle()
+    val stampCount by homeViewModel.stampCount.collectAsStateWithLifecycle()
     val products: List<String> = homeViewModel.products
 
     HomeScreen(
-        fullName = fullName.value,
-        stampCount = stampCount.value,
+        fullName = fullName,
+        stampCount = stampCount,
         coffees = products,
         onCartClick = onToCart,
         onProfileClick = onToProfile,

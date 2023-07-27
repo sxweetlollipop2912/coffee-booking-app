@@ -1,7 +1,7 @@
 package com.example.coffeebookingapp.ui.details
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.coffeebookingapp.model.ProductOption
@@ -14,11 +14,11 @@ fun DetailsRoute(
     onToCart: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val option: State<ProductOption> = detailsViewModel.option.collectAsStateWithLifecycle()
+    val option by detailsViewModel.option.collectAsStateWithLifecycle()
 
     DetailsScreen(
         product = product,
-        option = option.value,
+        option = option,
         totalPrice = detailsViewModel.price,
         onIncQuantity = { detailsViewModel.incQuantity() },
         onDecQuantity = { detailsViewModel.decQuantity() },

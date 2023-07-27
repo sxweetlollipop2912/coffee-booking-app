@@ -1,6 +1,7 @@
 package com.example.coffeebookingapp.ui.my_orders
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
@@ -11,12 +12,12 @@ fun MyOrdersRoute(
     onNavigateToBottomBarRoute: (NavRoutes.MainBottomBar) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val ongoing = myOrdersViewModel.ongoing.collectAsStateWithLifecycle()
-    val history = myOrdersViewModel.history.collectAsStateWithLifecycle()
+    val ongoing by myOrdersViewModel.ongoing.collectAsStateWithLifecycle()
+    val history by myOrdersViewModel.history.collectAsStateWithLifecycle()
 
     MyOrdersScreen(
-        ongoing = ongoing.value,
-        history = history.value,
+        ongoing = ongoing,
+        history = history,
         onOngoingClick = { orderId ->
             myOrdersViewModel.moveToHistory(orderId)
         },

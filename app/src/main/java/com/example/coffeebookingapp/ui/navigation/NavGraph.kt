@@ -54,7 +54,6 @@ fun CoffeeNavGraph(
                 onNavigateToBottomBarRoute = { coffeeNavController.navigateToBottomBar(it) },
             )
         }
-//         "details/{productId}?redeemableId={redeemableId}",
         composable(
             route =
             NavRoutes.Sub.DETAILS.route +
@@ -110,7 +109,7 @@ fun CoffeeNavGraph(
                         cartId = cartId
                     )
                 },
-                onToOngoingOrders = { /*TODO*/ },
+                onToOngoingOrders = { coffeeNavController.navigateToBottomBar(NavRoutes.MainBottomBar.ORDERS) },
                 onBack = { coffeeNavController.navigateUp() }
             )
         }

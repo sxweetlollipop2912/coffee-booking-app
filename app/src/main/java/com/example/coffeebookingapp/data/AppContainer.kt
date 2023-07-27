@@ -15,6 +15,7 @@ interface AppContainer {
  * Variables are initialized lazily and the same instance is shared across the whole app.
  */
 class AppContainerImpl(private val applicationContext: Context) : AppContainer {
-    override val repository: MainRepository
-        get() = FakeMainRepository()
+    override val repository: MainRepository by lazy {
+        FakeMainRepository()
+    }
 }

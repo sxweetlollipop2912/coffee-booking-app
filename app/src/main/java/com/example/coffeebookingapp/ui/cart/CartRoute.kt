@@ -1,6 +1,7 @@
 package com.example.coffeebookingapp.ui.cart
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
@@ -12,14 +13,14 @@ fun CartRoute(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val items = cartViewModel.items.collectAsStateWithLifecycle()
-    val uiState = cartViewModel.uiState.collectAsStateWithLifecycle()
+    val items by cartViewModel.items.collectAsStateWithLifecycle()
+    val uiState by cartViewModel.uiState.collectAsStateWithLifecycle()
 
-    if (uiState.value.checkOutSucceeded) {
+    if (uiState.checkOutSucceeded) {
         OrderSuccessScreen(onTrackOrderClick = onToOngoingOrders)
     } else {
         CartScreen(
-            items = items.value,
+            items = items,
             onNavigateToDetails = { onToDetails(it.product, it.id) },
             onRemoveItem = { cartViewModel.removeFromCart(it) },
             onCheckOut = { cartViewModel.checkOut() },
