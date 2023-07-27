@@ -120,8 +120,11 @@ fun RewardsScreenContent(
                 style = MaterialTheme.typography.labelLarge,
             )
         }
-        items(history.size) { index ->
-            RewardHistorySlot(reward = history[index])
+        items(
+            count = history.size,
+            key = { index -> history[index].id },
+        ) { index ->
+            RewardHistorySlot(reward = history[history.lastIndex - index])
             if (index < history.lastIndex) {
                 Spacer(modifier = Modifier.height(15.dp))
                 Divider(

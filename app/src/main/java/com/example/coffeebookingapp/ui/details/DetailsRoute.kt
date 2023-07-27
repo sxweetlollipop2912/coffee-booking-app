@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.coffeebookingapp.model.ProductOption
 
 @Composable
 fun DetailsRoute(
@@ -26,7 +25,11 @@ fun DetailsRoute(
         onSetTemperature = { detailsViewModel.setTemperature(it) },
         onSetSize = { detailsViewModel.setSize(it) },
         onSetIce = { detailsViewModel.setIce(it) },
-        onAddToCart = { detailsViewModel.addToCart() },
+        onAddToCart = {
+            if (detailsViewModel.addToCart()) {
+                onToCart()
+            }
+        },
         onBackClick = onBack,
         onCartClick = onToCart,
         modifier = modifier

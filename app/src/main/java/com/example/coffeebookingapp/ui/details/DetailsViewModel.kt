@@ -12,7 +12,6 @@ import com.example.coffeebookingapp.model.TemperatureType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class DetailsViewModel(
     private val repository: MainRepository,
@@ -39,10 +38,6 @@ class DetailsViewModel(
             return repository.getPrice(product, option.value, redeemableId != null)
         }
 
-    fun setQuantity(quantity: Int) {
-        _option.update { it.copy(quantity = maxOf(quantity, 0)) }
-    }
-
     fun incQuantity() {
         _option.update { it.copy(quantity = it.quantity + 1) }
     }
@@ -67,10 +62,10 @@ class DetailsViewModel(
         _option.update { it.copy(ice = ice) }
     }
 
-    fun addToCart() {
-        viewModelScope.launch {
+    fun addToCart(): Boolean {
+        viewModelScope.run {
             if (cartId != null) {
-                repository.modifyCartItem(
+                return repository.modifyCartItem(
                     cartId,
                     option.value
                 )
@@ -80,6 +75,7 @@ class DetailsViewModel(
                     option.value,
                     redeemableId
                 )
+                return true
             }
         }
     }

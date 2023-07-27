@@ -178,7 +178,10 @@ fun HomeScreenContent(
                     contentPadding = PaddingValues(bottom = 100.dp),
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    items(coffees.size) { idx ->
+                    items(
+                        count = coffees.size,
+                        key = { idx -> coffees[idx] }
+                    ) { idx ->
                         Card(
                             shape = RoundedCornerShape(15.dp),
                             colors = CardDefaults.cardColors(

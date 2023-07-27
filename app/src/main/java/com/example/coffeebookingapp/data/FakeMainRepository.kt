@@ -104,9 +104,9 @@ class FakeMainRepository : MainRepository {
 
     private val redeemables = MutableStateFlow(
         listOf(
-            Redeemable(newUUID(), products[0], now(false), 1340),
-            Redeemable(newUUID(), products[1], "04.07.21", 1340),
-            Redeemable(newUUID(), products[2], "04.07.21", 1340),
+            Redeemable(newUUID(), products[0], now(false), 50),
+            Redeemable(newUUID(), products[1], "04.07.21", 50),
+            Redeemable(newUUID(), products[2], "04.07.21", 50),
         )
     )
 
@@ -218,8 +218,8 @@ class FakeMainRepository : MainRepository {
             ),
         )
     )
-    private val ongoingOrders = MutableStateFlow(checkedOutOrders.value)
-    private val historyOrders = MutableStateFlow(emptyList<Order>())
+    private val ongoingOrders = MutableStateFlow(emptyList<Order>())
+    private val historyOrders = MutableStateFlow(checkedOutOrders.value)
 
     override fun observeFullName(): Flow<String> {
         return fullName
@@ -357,7 +357,7 @@ class FakeMainRepository : MainRepository {
         if (cart.value.isEmpty()) return false
 
         val orders = mutableListOf<Order>()
-        val pointsHistory = mutableListOf<PointReward>()
+        val ptsHistory = mutableListOf<PointReward>()
         for (item in cart.value) {
             val order = Order(
                 id = newUUID(),
@@ -368,16 +368,16 @@ class FakeMainRepository : MainRepository {
             )
             orders.add(order)
 
-            val pointsAdded = (item.price * 10).toInt()
-            pointsHistory.add(
+            val pts = (item.price * 10).toInt()
+            ptsHistory.add(
                 PointReward(
                     id = newUUID(),
                     product = item.product,
-                    points = pointsAdded,
+                    points = pts,
                     datetime = now(true)
                 )
             )
-            points.update { it + pointsAdded }
+            points.update { it + pts }
         }
         val redeemableIds = cart.value.mapNotNull { it.redeemableId }
 
@@ -385,6 +385,7 @@ class FakeMainRepository : MainRepository {
         redeemables.update { it.filter { redeemable -> redeemable.id !in redeemableIds } }
         checkedOutOrders.update { it + orders }
         ongoingOrders.update { it + orders }
+        pointsHistory.update { it + ptsHistory }
         stampCount.update { min(it + orders.size, 8) }
 
         return true

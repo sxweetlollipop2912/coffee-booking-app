@@ -44,7 +44,7 @@ class CoffeeNavController(
     private val currentRoute: String?
         get() = navController.currentDestination?.route
 
-    fun navigateUp() {
+    fun popBackStack() {
         navController.popBackStack()
     }
 

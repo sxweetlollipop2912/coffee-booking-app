@@ -81,7 +81,10 @@ fun RedeemScreenContent(
             .fillMaxWidth(),
         contentPadding = PaddingValues(bottom = 30.dp)
     ) {
-        items(redeemable.size) { index ->
+        items(
+            count = redeemable.size,
+            key = { index -> redeemable[index].id }
+        ) { index ->
             RedeemableSlot(
                 redeemable = redeemable[index],
                 onButtonClick = { onRedeemableClick(redeemable[index]) },

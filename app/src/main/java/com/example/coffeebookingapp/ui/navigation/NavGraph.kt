@@ -90,7 +90,7 @@ fun CoffeeNavGraph(
             DetailsRoute(
                 detailsViewModel = detailsViewModel,
                 product = product,
-                onBack = { coffeeNavController.navigateUp() },
+                onBack = { coffeeNavController.popBackStack() },
                 onToCart = { coffeeNavController.navigateToMainOther(NavRoutes.MainOther.CART) },
             )
         }
@@ -109,8 +109,13 @@ fun CoffeeNavGraph(
                         cartId = cartId
                     )
                 },
-                onToOngoingOrders = { coffeeNavController.navigateToBottomBar(NavRoutes.MainBottomBar.ORDERS) },
-                onBack = { coffeeNavController.navigateUp() }
+                onToOngoingOrders = {
+                    coffeeNavController.navigateToBottomBar(
+                        NavRoutes.MainBottomBar.ORDERS,
+                        "?${NavRoutes.MainBottomBar.ORDERS.args[0]}=${true}"
+                    )
+                },
+                onBack = { coffeeNavController.popBackStack() }
             )
         }
         composable(NavRoutes.MainOther.PROFILE.route) {
@@ -121,7 +126,7 @@ fun CoffeeNavGraph(
             )
             ProfileRoute(
                 profileViewModel = profileViewModel,
-                onBack = { coffeeNavController.navigateUp() },
+                onBack = { coffeeNavController.popBackStack() },
             )
         }
         composable(NavRoutes.MainBottomBar.REWARDS_HISTORY.route) {
@@ -151,7 +156,7 @@ fun CoffeeNavGraph(
                         redeemableId = redeemableId
                     )
                 },
-                onBack = { coffeeNavController.navigateUp() },
+                onBack = { coffeeNavController.popBackStack() },
             )
         }
         composable(NavRoutes.MainBottomBar.ORDERS.route) {
