@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.CartItem
 import com.example.coffeebookingapp.ui.CoffeeAvatar
-import com.example.coffeebookingapp.ui.theme.light_onSurface2
+import com.example.coffeebookingapp.ui.theme.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,14 +61,14 @@ fun CartItemCard(
                     Text(
                         text = "${item.option.shot} | ${item.option.temperature} | ${item.option.size} | ${item.option.ice}",
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = light_onSurface2,
+                            color = Colors.onSurface2,
                             fontWeight = FontWeight.Light,
                         ),
                     )
                     Text(
                         text = "x ${item.option.quantity}",
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            color = light_onSurface2,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            color = Colors.onSurface2,
                             fontWeight = FontWeight.SemiBold
                         ),
                     )

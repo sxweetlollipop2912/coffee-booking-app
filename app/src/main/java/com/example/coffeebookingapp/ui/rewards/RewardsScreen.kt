@@ -31,6 +31,7 @@ import com.example.coffeebookingapp.ui.components.PointCard
 import com.example.coffeebookingapp.ui.components.RewardHistorySlot
 import com.example.coffeebookingapp.ui.components.StampCountCard
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
+import com.example.coffeebookingapp.ui.theme.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,10 +111,16 @@ fun RewardsScreenContent(
             ) {
                 StampCountCard(
                     stampCount = stampCount,
-                    onClick = onStampCardClick
+                    onClick = onStampCardClick,
+                    containerColor = Colors.homeCardContainer,
+                    contentColor = Colors.homeCardContent,
+                    containerVariantColor = Colors.homeCardVariantContainer,
+                    activeCupTint = Colors.homeActiveCupTint,
                 )
                 PointCard(
                     points = points,
+                    containerColor = Colors.homeCardContainer,
+                    contentColor = Colors.homeCardContent,
                     onRedeemClick = onRedeemDrinksClick
                 )
             }

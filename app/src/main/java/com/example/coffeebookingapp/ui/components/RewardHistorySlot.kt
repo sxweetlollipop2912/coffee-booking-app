@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.model.PointReward
-import com.example.coffeebookingapp.ui.theme.light_onBackground2
+import com.example.coffeebookingapp.ui.theme.Colors
 
 @Composable
 fun RewardHistorySlot(
@@ -35,7 +35,7 @@ fun RewardHistorySlot(
             Text(
                 text = reward.datetime,
                 style = MaterialTheme.typography.labelMedium.copy(
-                    color = light_onBackground2,
+                    color = Colors.onBackground2
                 ),
             )
         }

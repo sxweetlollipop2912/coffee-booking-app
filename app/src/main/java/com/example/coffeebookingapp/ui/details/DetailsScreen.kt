@@ -40,8 +40,8 @@ import com.example.coffeebookingapp.model.TemperatureType
 import com.example.coffeebookingapp.ui.CoffeeAvatar
 import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.QuantityButton
+import com.example.coffeebookingapp.ui.theme.Colors
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
-import com.example.coffeebookingapp.ui.theme.light_inactive
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -144,6 +144,8 @@ fun DetailsScreenContent(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            val activeColor = MaterialTheme.colorScheme.onBackground
+            val inactiveColor = Colors.inactive
             Card(
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(
@@ -191,15 +193,17 @@ fun DetailsScreenContent(
                         ),
                         border = BorderStroke(
                             1.2.dp,
-                            if (current == ShotType.SINGLE) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            if (current == ShotType.SINGLE) activeColor
+                            else inactiveColor
                         ),
                         contentPadding = PaddingValues(20.dp, 0.dp),
                         modifier = Modifier.height(36.dp),
                     ) {
                         Text(
                             text = "Single",
-                            style = MaterialTheme.typography.labelMedium,
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                color = MaterialTheme.colorScheme.onBackground
+                            ),
                         )
                     }
                     OutlinedButton(
@@ -210,15 +214,17 @@ fun DetailsScreenContent(
                         ),
                         border = BorderStroke(
                             1.2.dp,
-                            if (current == ShotType.DOUBLE) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            if (current == ShotType.DOUBLE) activeColor
+                            else inactiveColor
                         ),
                         contentPadding = PaddingValues(20.dp, 0.dp),
                         modifier = Modifier.height(36.dp),
                     ) {
                         Text(
                             text = "Double",
-                            style = MaterialTheme.typography.labelMedium,
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                color = MaterialTheme.colorScheme.onBackground
+                            ),
                         )
                     }
                 }
@@ -240,16 +246,16 @@ fun DetailsScreenContent(
                         Icon(
                             painter = painterResource(R.drawable.cup_hot),
                             contentDescription = "select hot",
-                            tint = if (current == TemperatureType.HOT) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == TemperatureType.HOT) activeColor
+                            else inactiveColor
                         )
                     }
                     IconButton(onClick = { onSetTemperature(TemperatureType.ICED) }) {
                         Icon(
                             painter = painterResource(R.drawable.cup_iced),
                             contentDescription = "select cold",
-                            tint = if (current == TemperatureType.ICED) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == TemperatureType.ICED) activeColor
+                            else inactiveColor
                         )
                     }
                 }
@@ -274,8 +280,8 @@ fun DetailsScreenContent(
                         Icon(
                             painter = painterResource(R.drawable.cup_small),
                             contentDescription = "select size small",
-                            tint = if (current == SizeType.SMALL) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == SizeType.SMALL) activeColor
+                            else inactiveColor
                         )
                     }
                     IconButton(
@@ -285,8 +291,8 @@ fun DetailsScreenContent(
                         Icon(
                             painter = painterResource(R.drawable.cup_medium),
                             contentDescription = "select size medium",
-                            tint = if (current == SizeType.MEDIUM) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == SizeType.MEDIUM) activeColor
+                            else inactiveColor
                         )
                     }
                     IconButton(
@@ -296,8 +302,8 @@ fun DetailsScreenContent(
                         Icon(
                             painter = painterResource(R.drawable.cup_large),
                             contentDescription = "select size large",
-                            tint = if (current == SizeType.LARGE) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == SizeType.LARGE) activeColor
+                            else inactiveColor
                         )
                     }
                 }
@@ -319,24 +325,24 @@ fun DetailsScreenContent(
                         Icon(
                             painter = painterResource(R.drawable.ice1),
                             contentDescription = "select less ice",
-                            tint = if (current == IceType.LESS) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == IceType.LESS) activeColor
+                            else inactiveColor
                         )
                     }
                     IconButton(onClick = { onSetIce(IceType.HALF) }) {
                         Icon(
                             painter = painterResource(R.drawable.ice2),
                             contentDescription = "select half ice",
-                            tint = if (current == IceType.HALF) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == IceType.HALF) activeColor
+                            else inactiveColor
                         )
                     }
                     IconButton(onClick = { onSetIce(IceType.FULL) }) {
                         Icon(
                             painter = painterResource(R.drawable.ice3),
                             contentDescription = "select full ice",
-                            tint = if (current == IceType.FULL) MaterialTheme.colorScheme.onBackground
-                            else light_inactive
+                            tint = if (current == IceType.FULL) activeColor
+                            else inactiveColor
                         )
                     }
                 }

@@ -16,11 +16,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
-import com.example.coffeebookingapp.ui.theme.light_inactive
+import com.example.coffeebookingapp.ui.theme.Colors
 
 enum class BottomBarTab(
     val title: String,
@@ -37,18 +38,21 @@ fun BottomBar(
     tabs: Array<BottomBarTab>,
     currentRoute: NavRoutes.MainBottomBar,
     navigateToBottomBarRoute: (route: NavRoutes.MainBottomBar) -> Unit,
+    containerColor: Color = Colors.bottomBarContainer,
 ) {
     val currentTab = tabs.first { it.route == currentRoute }
-    BottomBarLayout {
+    BottomBarLayout(
+        containerColor = containerColor,
+    ) {
         tabs.forEach { tab ->
             val selected = (tab == currentTab)
             IconButton(onClick = { navigateToBottomBarRoute(tab.route) }) {
                 Icon(
                     painter = painterResource(tab.iconId),
                     tint = if (selected) {
-                        MaterialTheme.colorScheme.onBackground
+                        Colors.bottomBarContent
                     } else {
-                        light_inactive
+                        Colors.inactive(Colors.bottomBarContent)
                     },
                     contentDescription = tab.title
                 )
@@ -60,6 +64,7 @@ fun BottomBar(
 @Composable
 private fun BottomBarLayout(
     modifier: Modifier = Modifier,
+    containerColor: Color,
     content: @Composable () -> Unit
 ) {
     Box(
@@ -77,7 +82,7 @@ private fun BottomBarLayout(
                 defaultElevation = 8.dp,
             ),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.background,
+                containerColor = containerColor,
             )
         ) {
             Row(

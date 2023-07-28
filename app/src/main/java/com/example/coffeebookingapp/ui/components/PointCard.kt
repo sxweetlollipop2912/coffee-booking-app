@@ -1,6 +1,5 @@
 package com.example.coffeebookingapp.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,21 +13,24 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
-import com.example.coffeebookingapp.ui.theme.light_onPrimary2
 
 @Composable
 fun PointCard(
     points: Int,
     modifier: Modifier = Modifier,
+    containerColor: Color,
+    contentColor: Color,
     onRedeemClick: () -> Unit,
 ) {
     Box {
@@ -37,7 +39,7 @@ fun PointCard(
                 .fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
             colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.primary,
+                containerColor = containerColor,
             )
         ) {
             Row(
@@ -51,13 +53,13 @@ fun PointCard(
                     Text(
                         text = "My Points:",
                         style = MaterialTheme.typography.labelLarge.copy(
-                            color = light_onPrimary2
+                            color = contentColor
                         ),
                     )
                     Text(
                         text = "$points",
                         style = MaterialTheme.typography.headlineSmall.copy(
-                            color = light_onPrimary2,
+                            color = contentColor,
                             fontWeight = FontWeight.Medium,
                         ),
                     )
@@ -72,17 +74,20 @@ fun PointCard(
                 ) {
                     Text(
                         text = "Redeem drinks",
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.labelMedium.copy(
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
                     )
                 }
             }
         }
-        Image(
+        Icon(
             painter = painterResource(id = R.drawable.decor_rewards),
             contentDescription = null,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .offset(10.dp, 20.dp)
+                .offset(10.dp, 20.dp),
+            tint = MaterialTheme.colorScheme.background
         )
     }
 }

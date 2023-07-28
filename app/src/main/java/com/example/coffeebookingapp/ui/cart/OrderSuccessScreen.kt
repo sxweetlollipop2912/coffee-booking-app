@@ -1,5 +1,6 @@
 package com.example.coffeebookingapp.ui.cart
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,9 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
+import com.example.coffeebookingapp.ui.theme.Colors
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
-import com.example.coffeebookingapp.ui.theme.light_darkPrimary
-import com.example.coffeebookingapp.ui.theme.light_onBackground2
 
 @Composable
 fun OrderSuccessScreen(
@@ -31,6 +31,7 @@ fun OrderSuccessScreen(
 ) {
     Column(
         modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
             .padding(30.dp)
             .fillMaxHeight()
             .verticalScroll(rememberScrollState()),
@@ -39,6 +40,7 @@ fun OrderSuccessScreen(
     ) {
         Icon(
             painter = painterResource(R.drawable.takeaway),
+            tint = MaterialTheme.colorScheme.onBackground,
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -46,19 +48,19 @@ fun OrderSuccessScreen(
             text = "Order Success",
             style = MaterialTheme.typography.titleLarge.copy(
                 fontWeight = FontWeight.Medium,
-                color = light_darkPrimary
+                color = MaterialTheme.colorScheme.onBackground
             ),
         )
         Text(
             text = "Your order has been placed successfully.",
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = light_onBackground2
+                color = Colors.onBackground2
             ),
         )
         Text(
             text = "For more details, go to my orders.",
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = light_onBackground2
+                color = Colors.onBackground2
             ),
         )
         Spacer(modifier = Modifier.height(50.dp))

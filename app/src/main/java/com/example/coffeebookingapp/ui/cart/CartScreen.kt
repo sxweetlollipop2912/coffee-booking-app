@@ -31,9 +31,8 @@ import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.model.CartItem
 import com.example.coffeebookingapp.ui.UIConfig
 import com.example.coffeebookingapp.ui.components.CartItemCard
+import com.example.coffeebookingapp.ui.theme.Colors
 import com.example.coffeebookingapp.ui.theme.buttonTextStyle
-import com.example.coffeebookingapp.ui.theme.light_darkPrimary
-import com.example.coffeebookingapp.ui.theme.light_onBackground2
 import kotlin.math.abs
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -171,14 +170,14 @@ fun CartScreenContent(
                 Text(
                     text = "Total Price",
                     style = MaterialTheme.typography.labelMedium.copy(
-                        color = light_onBackground2
+                        color = Colors.onBackground2
                     ),
                 )
                 Text(
                     text = "$${totalPrice}",
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.SemiBold,
-                        color = light_darkPrimary
+                        color = Colors.boldPrimary
                     ),
                 )
             }

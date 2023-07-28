@@ -40,9 +40,7 @@ import com.example.coffeebookingapp.ui.components.BottomBar
 import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.StampCountCard
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
-import com.example.coffeebookingapp.ui.theme.light_darkPrimary
-import com.example.coffeebookingapp.ui.theme.light_onBackground2
-import com.example.coffeebookingapp.ui.theme.light_onPrimary2
+import com.example.coffeebookingapp.ui.theme.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,14 +67,14 @@ fun HomeScreen(
                         Text(
                             text = "Good morning",
                             style = MaterialTheme.typography.labelLarge.copy(
-                                color = light_onBackground2
+                                color = Colors.onBackground2
                             )
                         )
                         Text(
                             text = fullName,
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontSize = 18.sp,
-                                color = light_darkPrimary,
+                                color = Colors.boldPrimary,
                                 platformStyle = PlatformTextStyle(
                                     includeFontPadding = false
                                 )
@@ -92,7 +90,7 @@ fun HomeScreen(
                             Icon(
                                 painter = painterResource(R.drawable.cart),
                                 contentDescription = "go to cart",
-                                tint = light_darkPrimary
+                                tint = Colors.boldPrimary
                             )
                         }
                         IconButton(
@@ -101,7 +99,7 @@ fun HomeScreen(
                             Icon(
                                 painter = painterResource(R.drawable.person),
                                 contentDescription = "go to profile",
-                                tint = light_darkPrimary
+                                tint = Colors.boldPrimary
                             )
                         }
                     }
@@ -117,7 +115,8 @@ fun HomeScreen(
             BottomBar(
                 tabs = BottomBarTab.values(),
                 currentRoute = NavRoutes.MainBottomBar.HOME,
-                navigateToBottomBarRoute = onNavigateToBottomBarRoute
+                navigateToBottomBarRoute = onNavigateToBottomBarRoute,
+                containerColor = Colors.homeCardVariantContainer,
             )
         },
     ) { innerPadding ->
@@ -153,13 +152,17 @@ fun HomeScreenContent(
         StampCountCard(
             stampCount = stampCount,
             onClick = onStampCountClick,
+            containerColor = Colors.homeCardContainer,
+            contentColor = Colors.homeCardContent,
+            containerVariantColor = Colors.homeCardVariantContainer,
+            activeCupTint = Colors.homeActiveCupTint,
             modifier = Modifier.padding(horizontal = UIConfig.SCREEN_SIDE_PADDING)
         )
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp))
-                .background(MaterialTheme.colorScheme.primary)
+                .background(Colors.homeCardContainer)
                 .padding(
                     start = UIConfig.SCREEN_SIDE_PADDING,
                     end = UIConfig.SCREEN_SIDE_PADDING,
@@ -173,7 +176,7 @@ fun HomeScreenContent(
                 Text(
                     text = "Choose your coffee",
                     style = MaterialTheme.typography.titleMedium.copy(
-                        color = light_onPrimary2
+                        color = Colors.homeCardContent
                     ),
                     modifier = Modifier.padding(2.dp, 0.dp, 0.dp, 0.dp)
                 )
@@ -191,7 +194,7 @@ fun HomeScreenContent(
                         Card(
                             shape = RoundedCornerShape(15.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface,
+                                containerColor = Colors.homeCardVariantContainer
                             ),
                             onClick = { onCoffeeClick(coffees[idx]) },
                         ) {
@@ -205,7 +208,9 @@ fun HomeScreenContent(
                                 CoffeeAvatar(coffee = coffees[idx], width = 120.dp)
                                 Text(
                                     text = coffees[idx],
-                                    style = MaterialTheme.typography.labelLarge
+                                    style = MaterialTheme.typography.labelLarge.copy(
+                                        color = Colors.homeCardVariantContent
+                                    )
                                 )
                             }
                         }

@@ -40,7 +40,7 @@ import com.example.coffeebookingapp.ui.components.BottomBar
 import com.example.coffeebookingapp.ui.components.BottomBarTab
 import com.example.coffeebookingapp.ui.components.OrderSlot
 import com.example.coffeebookingapp.ui.navigation.NavRoutes
-import com.example.coffeebookingapp.ui.theme.light_inactive
+import com.example.coffeebookingapp.ui.theme.Colors
 
 data class TabContentData(
     val tab: Tab,
@@ -133,7 +133,7 @@ fun MyOrdersScreenContent(
                         color = if (selected) {
                             MaterialTheme.colorScheme.primary
                         } else {
-                            light_inactive
+                            Colors.inactive
                         },
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(vertical = 12.dp)
@@ -176,7 +176,7 @@ fun TabContent(
                     val color by animateColorAsState(
                         when (dismissState.targetValue) {
                             DismissValue.Default -> Color.Transparent
-                            else -> light_inactive
+                            else -> MaterialTheme.colorScheme.outlineVariant
                         },
                         label = ""
                     )

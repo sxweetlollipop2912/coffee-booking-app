@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.model.Order
-import com.example.coffeebookingapp.ui.theme.light_onBackground2
+import com.example.coffeebookingapp.ui.theme.Colors
 
 @Composable
 fun OrderSlot(
@@ -32,7 +32,7 @@ fun OrderSlot(
             Text(
                 text = order.datetime,
                 style = MaterialTheme.typography.labelMedium.copy(
-                    color = light_onBackground2
+                    color = Colors.onBackground2
                 ),
             )
             Row(

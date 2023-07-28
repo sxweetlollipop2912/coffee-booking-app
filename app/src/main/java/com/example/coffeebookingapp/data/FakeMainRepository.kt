@@ -361,6 +361,8 @@ class FakeMainRepository : MainRepository {
         }
         val redeemableIds = cart.value.mapNotNull { it.redeemableId }
 
+        stampCount.update { min(it + cart.value.sumOf { item -> item.option.quantity }, 8) }
+
         cart.update { emptyList() }
         checkedOutOrders.update { it + orders }
         ongoingOrders.update { it + orders }
@@ -368,7 +370,6 @@ class FakeMainRepository : MainRepository {
         pointsHistory.update { it + ptsHistory }
         pointsHistory.update { it.filter { reward -> reward.points != 0 } }
         redeemables.update { it.filter { redeemable -> redeemable.id !in redeemableIds } }
-        stampCount.update { min(it + orders.size, 8) }
 
         return true
     }

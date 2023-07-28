@@ -35,7 +35,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
 import com.example.coffeebookingapp.ui.UIConfig
-import com.example.coffeebookingapp.ui.theme.light_onBackground2
+import com.example.coffeebookingapp.ui.theme.Colors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -264,7 +264,7 @@ private fun BaseField(
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelMedium.copy(
-                        color = light_onBackground2
+                        color = Colors.onBackground2
                     )
                 )
                 contentUnit()

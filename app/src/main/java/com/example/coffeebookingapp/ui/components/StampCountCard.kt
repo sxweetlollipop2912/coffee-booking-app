@@ -1,6 +1,5 @@
 package com.example.coffeebookingapp.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,15 +9,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.coffeebookingapp.R
-import com.example.coffeebookingapp.ui.theme.light_onPrimary2
+import com.example.coffeebookingapp.ui.theme.Colors
 import java.lang.Integer.min
 import kotlin.math.abs
 
@@ -27,6 +28,11 @@ import kotlin.math.abs
 fun StampCountCard(
     stampCount: Int,
     modifier: Modifier = Modifier,
+    containerColor: Color,
+    contentColor: Color,
+    containerVariantColor: Color,
+    activeCupTint: Color,
+    inactiveCupTint: Color = Colors.inactive,
     onClick: () -> Unit
 ) {
     val stampCount = min(abs(stampCount), 8)
@@ -35,7 +41,7 @@ fun StampCountCard(
             .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary,
+            containerColor = containerColor,
         )
     ) {
         Column(
@@ -51,13 +57,13 @@ fun StampCountCard(
                 Text(
                     text = "Loyalty card",
                     style = MaterialTheme.typography.labelLarge.copy(
-                        color = light_onPrimary2
+                        color = contentColor
                     )
                 )
                 Text(
                     text = "$stampCount / 8",
                     style = MaterialTheme.typography.labelLarge.copy(
-                        color = light_onPrimary2
+                        color = contentColor
                     )
                 )
             }
@@ -66,7 +72,7 @@ fun StampCountCard(
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
+                    containerColor = containerVariantColor,
                 ),
                 onClick = onClick
             ) {
@@ -79,15 +85,17 @@ fun StampCountCard(
                 ) {
                     // add ic_coffee_cup_active icon the number of stampCount times
                     for (i in 1..stampCount) {
-                        Image(
+                        Icon(
                             painter = painterResource(R.drawable.cup_glow),
+                            tint = activeCupTint,
                             contentDescription = null,
                         )
                     }
                     // add ic_coffee_cup_inactive icon the number of 8 - stampCount times
                     for (i in 1..(8 - stampCount)) {
-                        Image(
+                        Icon(
                             painter = painterResource(R.drawable.cup_noglow),
+                            tint = inactiveCupTint,
                             contentDescription = null,
                         )
                     }
