@@ -23,7 +23,7 @@ import java.util.UUID
 class FakeMainRepository : MainRepository {
     private val basePrice = 1.0
 
-    private val products = listOf("Americano", "Cappuccino", "Mocha", "Flat White")
+    private val products = listOf("Americano", "Cappuccino", "Latte", "Flat White")
 
     private val fullName = MutableStateFlow("Anderson")
     private val phone = MutableStateFlow("+60134589525")

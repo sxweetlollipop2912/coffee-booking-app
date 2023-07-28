@@ -51,7 +51,8 @@ fun CartItemCard(
             ) {
                 CoffeeAvatar(
                     coffee = item.product,
-                    width = 80.dp
+                    width = 80.dp,
+                    height = 80.dp,
                 )
                 Column {
                     Text(

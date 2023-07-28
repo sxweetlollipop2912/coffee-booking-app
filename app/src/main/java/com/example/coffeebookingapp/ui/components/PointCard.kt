@@ -66,6 +66,9 @@ fun PointCard(
                 }
                 Button(
                     onClick = onRedeemClick,
+                    elevation = ButtonDefaults.buttonElevation(
+                        defaultElevation = 2.dp
+                    ),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primaryContainer,
                     ),

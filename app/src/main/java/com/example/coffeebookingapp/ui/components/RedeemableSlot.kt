@@ -36,7 +36,8 @@ fun RedeemableSlot(
         ) {
             CoffeeAvatar(
                 coffee = redeemable.product,
-                width = 80.dp
+                width = 80.dp,
+                height = 80.dp,
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(4.dp)

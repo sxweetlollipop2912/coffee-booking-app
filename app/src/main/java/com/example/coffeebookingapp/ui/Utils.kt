@@ -1,6 +1,7 @@
 package com.example.coffeebookingapp.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,19 +14,20 @@ import com.example.coffeebookingapp.R
 fun CoffeeAvatar(
     coffee: String,
     width: Dp,
+    height: Dp,
     modifier: Modifier = Modifier
 ) {
     val coffee = coffee.lowercase()
     val painter = when (coffee) {
         "americano" -> painterResource(id = R.drawable.americano)
         "cappuccino" -> painterResource(id = R.drawable.cappuccino)
-        "mocha" -> painterResource(id = R.drawable.mocha)
+        "latte" -> painterResource(id = R.drawable.latte)
         else -> painterResource(id = R.drawable.flatwhite)
     }
     Image(
         painter = painter,
         contentDescription = null,
-        modifier = modifier.width(width),
-        contentScale = ContentScale.Crop
+        modifier = modifier.width(width).height(height),
+        contentScale = ContentScale.Inside
     )
 }

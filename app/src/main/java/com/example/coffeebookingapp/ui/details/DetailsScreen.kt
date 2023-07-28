@@ -156,7 +156,7 @@ fun DetailsScreenContent(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    CoffeeAvatar(coffee = product, width = 200.dp)
+                    CoffeeAvatar(coffee = product, width = 200.dp, height = 150.dp,)
                 }
             }
             OptionRow(

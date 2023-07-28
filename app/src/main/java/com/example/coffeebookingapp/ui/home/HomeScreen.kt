@@ -193,6 +193,9 @@ fun HomeScreenContent(
                     ) { idx ->
                         Card(
                             shape = RoundedCornerShape(15.dp),
+                            elevation = CardDefaults.cardElevation(
+                                defaultElevation = 2.dp,
+                            ),
                             colors = CardDefaults.cardColors(
                                 containerColor = Colors.homeCardVariantContainer
                             ),
@@ -205,7 +208,7 @@ fun HomeScreenContent(
                                     .fillMaxWidth()
                                     .padding(vertical = 20.dp)
                             ) {
-                                CoffeeAvatar(coffee = coffees[idx], width = 120.dp)
+                                CoffeeAvatar(coffee = coffees[idx], width = 120.dp, height = 95.dp,)
                                 Text(
                                     text = coffees[idx],
                                     style = MaterialTheme.typography.labelLarge.copy(
