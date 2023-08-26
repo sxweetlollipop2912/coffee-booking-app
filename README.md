@@ -41,7 +41,7 @@ When navigating within the navigation graph, data is sent via [route arguments](
   <img src="/screenshots/light/profile.png" width="120" />
 </p>
 
-#### Dark
+### Dark
 
 <p float="left">
   <img src="/screenshots/dark/home.png" width="120" />
