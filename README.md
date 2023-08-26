@@ -28,9 +28,9 @@ Followed the [UDF pattern](https://developer.android.com/topic/architecture#unid
 
 When navigating within the navigation graph, data is sent via [route arguments](https://developer.android.com/jetpack/compose/navigation#nav-with-args).
 
-### Screenshots
+## Screenshots
 
-#### Light
+### Light
 
 <p float="left">
   <img src="/screenshots/light/home.png" width="120" />
