@@ -10,7 +10,7 @@ This is made for my 1-week midterm. The UI closely followed the provided [Figma 
 
 [![Demo video](https://img.youtube.com/vi/DZOCRP9_3LU/0.jpg)](https://www.youtube.com/watch?v=DZOCRP9_3LU)
 
-## Technical
+## Technical stuff
 
 Made with Jetpack Compose.
 
