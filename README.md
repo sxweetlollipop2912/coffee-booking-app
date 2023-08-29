@@ -14,7 +14,7 @@ This is made for my 1-week midterm. The UI closely followed the provided [Figma 
 
 Made with Jetpack Compose.
 
-Followed Google-recommended practices in building the app architecture, separation of UI layer and data layer, and gracefully handling of app navigation, state and data persistency.
+Followed Google-recommended practices in building the app architecture, separation of UI layer and data layer, and graceful handling of app navigation, state and data lifecycles.
 
 No back-end. No data is stored on the machine.
 
