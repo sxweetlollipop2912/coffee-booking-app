@@ -2,7 +2,7 @@
 
 Interface of an Android app which is used to book coffee.
 
-This is made for my 1-week midterm. The UI closely followed the provided [Figma design](https://www.figma.com/file/DwWheBUCT8TKlhjdwMkDQ8/CS426?type=design&node-id=37-0&mode=design&t=NOuAESQZHkprNowk-0).
+This is made for my 1-week midterm. The UI closely followed the provided Figma design.
 
 ## Demo
 
